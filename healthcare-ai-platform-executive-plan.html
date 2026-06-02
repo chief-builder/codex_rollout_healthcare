@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Executive Plan: Healthcare AI Coding Platform</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5e697c;
+      --line: #d9e0ea;
+      --soft: #f5f8fb;
+      --panel: #ffffff;
+      --navy: #17365f;
+      --teal: #0f766e;
+      --green: #2f7d32;
+      --gold: #9a6b13;
+      --red: #a63a3a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #f0f4f8;
+      line-height: 1.55;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: var(--panel);
+      min-height: 100vh;
+      box-shadow: 0 16px 48px rgba(23, 32, 51, 0.08);
+    }
+
+    header {
+      padding: 48px 52px 28px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 38px;
+      line-height: 1.1;
+      letter-spacing: 0;
+      color: var(--navy);
+    }
+
+    .subtitle {
+      max-width: 920px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    section {
+      padding: 34px 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: var(--navy);
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 16px;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+
+    .callout {
+      border-left: 4px solid var(--teal);
+      background: #effaf8;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .warning {
+      border-left-color: var(--gold);
+      background: #fff8e8;
+    }
+
+    .diagram {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 10px;
+      align-items: stretch;
+      margin: 18px 0;
+    }
+
+    .node {
+      min-height: 88px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px;
+      background: var(--soft);
+      position: relative;
+    }
+
+    .node:not(:last-child)::after {
+      content: ">";
+      position: absolute;
+      right: -9px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-weight: 700;
+      background: #fff;
+      width: 16px;
+      text-align: center;
+    }
+
+    .node strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .node span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .swimlane {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    .swimlane + .swimlane {
+      margin-top: 10px;
+    }
+
+    .lane-label {
+      padding: 14px;
+      background: #eef4fa;
+      font-weight: 700;
+      color: var(--navy);
+      border-right: 1px solid var(--line);
+    }
+
+    .lane-content {
+      padding: 14px;
+      background: #fff;
+    }
+
+    .route-list {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 14px;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: minmax(210px, 0.8fr) minmax(0, 1fr) 150px;
+      gap: 14px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #fff;
+    }
+
+    .route strong {
+      display: block;
+    }
+
+    .route .route-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .route .route-phase {
+      justify-self: end;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--navy);
+      background: #f7fbfd;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .control-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .control-strip span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 9px;
+      color: var(--muted);
+      background: #f7fbfd;
+      font-size: 13px;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .control-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .control-card strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .control-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .flow-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+      align-items: stretch;
+    }
+
+    .flow-step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #f7fbfd;
+      position: relative;
+      min-height: 74px;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: ">";
+      position: absolute;
+      right: -9px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      background: #fff;
+      font-weight: 700;
+      width: 16px;
+      text-align: center;
+    }
+
+    .flow-step strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .status-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .status-panel strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: #f7fbfd;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 700;
+      margin: 0 6px 6px 0;
+      white-space: nowrap;
+    }
+
+    code {
+      background: #edf2f7;
+      border: 1px solid #dce5ef;
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    .hero-image {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: block;
+      background: #fff;
+      margin-top: 18px;
+    }
+
+    .section-visual {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: block;
+      background: #fff;
+      margin: 16px 0 18px;
+    }
+
+    .visual-caption {
+      margin: -8px 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: #eef4fa;
+      color: var(--navy);
+    }
+
+    .status {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .blocked {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 24px 52px 42px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px) {
+      header,
+      section,
+      footer {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .grid,
+      .grid.two,
+      .diagram,
+      .route-list {
+        grid-template-columns: 1fr;
+      }
+
+      .route {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .route .route-phase {
+        justify-self: start;
+      }
+
+      .control-grid,
+      .flow-strip,
+      .status-row {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-step:not(:last-child)::after {
+        content: "v";
+        right: 50%;
+        top: auto;
+        bottom: -14px;
+        transform: translateX(50%);
+      }
+
+      .node:not(:last-child)::after {
+        content: "v";
+        right: 50%;
+        top: auto;
+        bottom: -14px;
+        transform: translateX(50%);
+      }
+
+      .swimlane {
+        grid-template-columns: 1fr;
+      }
+
+      .lane-label {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .pill {
+        white-space: normal;
+      }
+
+      table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      code,
+      .card,
+      .node,
+      .route,
+      .lane-content {
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Executive Plan: Healthcare AI Coding Platform</h1>
+      <p class="subtitle">A controlled rollout for Codex CLI and coding-only AI workflows using Kong, AWS Bedrock-hosted OpenAI models, usage metering, and sanitized Codex observability.</p>
+      <div class="meta">
+        <span class="pill">Audience: Executives, Security, Platform, Finance</span>
+        <span class="pill">Users: Software Engineering + Product Managers only</span>
+        <span class="pill">Workflows: Coding only</span>
+        <span class="pill">Endpoints: managed macOS only</span>
+        <span class="pill">Runtime: AWS Bedrock</span>
+        <span class="pill">Gateway: Kong</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Summary</h2>
+      <p>The platform routes model traffic through Kong. Codex CLI runs on managed macOS developer environments, uses a Kong-fronted provider, Kong enforces identity and policy, a coding policy service forwards approved Responses-format requests to Amazon Bedrock Mantle, and all usage is metered for billing and audit.</p>
+      <p>MLflow is limited to sanitized Codex CLI observability. Backend, Kong, and application observability remain in the organization's existing observability stack.</p>
+      <img class="hero-image" src="assets/executive-architecture-diagram.png" alt="Executive architecture diagram showing Codex CLI through Kong, policy and metering, AWS Bedrock, OpenAI models, MLflow observability, and billing ledger">
+    </section>
+
+    <section>
+      <h2>2. Executive Architecture</h2>
+      <div class="diagram" aria-label="Codex CLI request flow">
+        <div class="node"><strong>Codex CLI</strong><span>Managed macOS developer environments</span></div>
+        <div class="node"><strong>Kong Gateway</strong><span>Auth, rate limits, metering tap</span></div>
+        <div class="node"><strong>Policy Service</strong><span>Job family, workflow, PHI checks, store=false</span></div>
+        <div class="node"><strong>Bedrock Mantle</strong><span>OpenAI Responses endpoint</span></div>
+        <div class="node"><strong>OpenAI Models</strong><span>Hosted on AWS Bedrock</span></div>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <strong>Observability Side Path</strong>
+          Codex CLI emits sanitized OpenTelemetry to an internal Collector, then to self-hosted MLflow.
+        </div>
+        <div class="card">
+          <strong>Billing Side Path</strong>
+          Kong and the policy service emit usage events to an append-only metering store, then to billing and chargeback.
+        </div>
+      </div>
+      <img class="section-visual" src="assets/executive-request-flow-diagram.png" alt="Executive request flow diagram showing Codex token retrieval, Kong claims validation, policy and PHI checks, Bedrock Mantle Responses invocation with store=false, AWS Bedrock serving the model, streaming response, MLflow alias-only telemetry, metering served model tokens and cost, and fail-closed blocked path">
+      <p class="visual-caption">Sequence view: policy failures stop before Bedrock; MLflow receives only sanitized Codex telemetry, while served-model and cost facts go to metering.</p>
+    </section>
+
+    <section>
+      <h2>3. Supported Scope</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>Eligible Users</strong>
+          Software Engineering and Product Manager job families only, based on validated identity claims.
+        </div>
+        <div class="card">
+          <strong>Endpoint Scope</strong>
+          Managed macOS developer environments only. Windows and Linux endpoints are out of scope.
+        </div>
+        <div class="card">
+          <strong>Supported Workflows</strong>
+          Code explanation, generation, tests, debugging, refactoring, code review, code documentation, and product-to-engineering task decomposition.
+        </div>
+        <div class="card">
+          <strong>Blocked Workflows</strong>
+          Clinical drafting, patient messaging, diagnosis, treatment advice, claims automation, chart summarization, admin summarization, and policy search.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Model Strategy</h2>
+      <p>AWS Bedrock is the regulated runtime for both open-weight and frontier OpenAI models. GPT-5.5, GPT-5.4, and Codex from OpenAI are generally available on Amazon Bedrock as of June 1, 2026. Clients use simple aliases; raw Bedrock Mantle model IDs are resolved server-side.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Alias</th>
+            <th>Model</th>
+            <th>Use</th>
+            <th>Availability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>coding-economy</code></td>
+            <td><code>openai.gpt-oss-20b</code></td>
+            <td>Lower-cost tests and simple coding tasks</td>
+            <td><span class="status">GA; gated</span><br>Approved region, account access, endpoint availability, and quotas required.</td>
+          </tr>
+          <tr>
+            <td><code>coding-standard</code></td>
+            <td><code>openai.gpt-oss-120b</code></td>
+            <td>Default coding assistant model</td>
+            <td><span class="status">GA; gated</span><br>Approved region, account access, endpoint availability, and quotas required.</td>
+          </tr>
+          <tr>
+            <td><code>coding-frontier</code></td>
+            <td><code>openai.gpt-5.5</code></td>
+            <td>Higher-complexity coding workflows</td>
+            <td><span class="status">GA; gated</span><br>Healthcare approvals, budgets, quotas, and route controls required.</td>
+          </tr>
+          <tr>
+            <td><code>coding-frontier-p</code></td>
+            <td><code>openai.gpt-5.4</code></td>
+            <td>Secondary frontier evaluation</td>
+            <td><span class="status">GA; gated</span><br>Same healthcare controls.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="sources">Sources: <a href="https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-openai-models-codex-generally-available/">AWS GA announcement</a>, <a href="https://developers.openai.com/api/docs/guides/latest-model.md">OpenAI latest-model guide</a>, <a href="https://developers.openai.com/api/docs/guides/amazon-bedrock#make-responses-api-requests">OpenAI Amazon Bedrock guide</a>.</p>
+    </section>
+
+    <section>
+      <h2>5. Bedrock Responses Integration</h2>
+      <p>Codex CLI speaks the OpenAI Responses wire API. Amazon Bedrock now exposes the OpenAI Responses API through the Bedrock Mantle endpoint, so the production path forwards approved Responses-format requests instead of translating them to Converse.</p>
+      <div class="swimlane">
+        <div class="lane-label">Production path</div>
+        <div class="lane-content">Responses API request -> Kong -> policy service -> Bedrock Mantle <code>/openai/v1/responses</code> with <code>store=false</code> -> Responses-format stream back to Codex.</div>
+      </div>
+      <div class="swimlane">
+        <div class="lane-label">Fallback path</div>
+        <div class="lane-content">Converse or InvokeModel fallback is separately approved only for a feature or model gap, and requires its own translation, metering, and retention controls.</div>
+      </div>
+      <div class="callout">
+        The policy service enforces <code>store=false</code> because AWS documents that this setting prevents Bedrock from retaining request or response data.
+      </div>
+      <p class="sources">Sources: <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html">AWS Bedrock Mantle Responses API</a>, <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/apis.html">AWS supported API patterns</a>, <a href="https://developers.openai.com/api/docs/guides/amazon-bedrock#make-responses-api-requests">OpenAI Bedrock Responses examples</a>.</p>
+    </section>
+
+    <section>
+      <h2>6. Identity and Authorization</h2>
+      <p>Kong validates the token and the policy service re-checks identity claims. Client-supplied identity headers are stripped or ignored.</p>
+      <img class="section-visual" src="assets/executive-identity-governance-diagram.png" alt="Identity and governance diagram showing SWE or PM users, enterprise token, Kong claims check, policy service, approved coding request, and blocked unauthorized path">
+      <p class="visual-caption">Simple view of the claims-based control path: identity is validated before any model request is allowed through.</p>
+      <div class="grid">
+        <div class="card"><strong>Source of Truth</strong>Validated OIDC/JWT claims, not environment variables or client headers.</div>
+        <div class="card"><strong>Allowed Groups</strong>Software Engineering and Product Manager groups only.</div>
+        <div class="card"><strong>Fail-Closed Cases</strong>Missing token, invalid job family, disallowed model alias, policy failure, PHI detection, or budget breach.</div>
+      </div>
+      <div class="callout">
+        Managed Mac controls cover Codex local history, Codex logs, terminal scrollback, shell history, crash reports, SQLite/runtime state, temporary files, and EDR or endpoint telemetry collection.
+      </div>
+    </section>
+
+    <section>
+      <h2>7. Metering and Billing</h2>
+      <p>Billing is separate from MLflow. The append-only metering store is the request-level system of record; AWS billing data is used as an independent aggregate check.</p>
+      <img class="section-visual" src="assets/executive-metering-billing-diagram.png" alt="Metering and billing diagram showing Kong request record and policy-service token counts flowing to append-only metering store, chargeback, AWS CUR and Cost Explorer aggregate validation, and finance review">
+      <p class="visual-caption">Request-level usage comes from the metering store. Aggregate validation compares rolled-up metering totals against AWS billing totals to catch drift, missing events, pricing mismatches, or attribution errors.</p>
+      <div class="diagram" aria-label="Billing flow">
+        <div class="node"><strong>Kong</strong><span>Request and consumer metadata</span></div>
+        <div class="node"><strong>Policy Service</strong><span>Token counts and model ID</span></div>
+        <div class="node"><strong>Metering Store</strong><span>Request-level source of truth</span></div>
+        <div class="node"><strong>AWS CUR</strong><span>Aggregate validation</span></div>
+        <div class="node"><strong>Chargeback</strong><span>Team and job-family reports</span></div>
+      </div>
+      <ul>
+        <li>Soft caps alert and throttle. Hard caps fail closed.</li>
+        <li>Daily showback and chargeback are grouped by team, job family, and model tier.</li>
+        <li>Aggregate validation rolls up metering records by day, team, model tier, and region, then compares those totals to AWS CUR or Cost Explorer.</li>
+        <li>AWS billing does not replace the metering store; it validates aggregate spend, not per-request usage.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>8. PHI Detection and Data Protection</h2>
+      <p>PHI is prohibited until the healthcare organization completes BAA, HIPAA eligibility, compliance, logging, and security approvals.</p>
+      <div class="grid">
+        <div class="card"><strong>Detection Layers</strong>Regex patterns, managed NER or DLP, and heuristic payload gates.</div>
+        <div class="card"><strong>Initial Posture</strong>All initial routes are non-PHI and reject PHI-like input fail-closed.</div>
+        <div class="card"><strong>No Raw Retention</strong>No raw prompts, completions, source, command output, diffs, PHI, or secrets in Kong, MLflow, metering, backend logs, or unmanaged local endpoint artifacts.</div>
+      </div>
+      <div class="callout warning">
+        Detection has residual risk. Early phases use synthetic or non-PHI repos so detector tuning cannot expose real PHI. Bedrock requests must include <code>store=false</code>.
+      </div>
+      <p class="sources">Sources: <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html">AWS Bedrock Mantle retention behavior</a>, <a href="https://aws.amazon.com/compliance/hipaa-eligible-services-reference/">AWS HIPAA Eligible Services Reference</a>.</p>
+    </section>
+
+    <section>
+      <h2>9. Resilience and Fallback</h2>
+      <p>The resilience posture keeps availability problems controlled without weakening authorization, PHI, budget, or retention controls.</p>
+      <div class="control-grid">
+        <div class="control-card">
+          <strong>Retries</strong>
+          <span>Bounded exponential backoff for Bedrock Mantle throttles and transient 5xx failures.</span>
+        </div>
+        <div class="control-card">
+          <strong>Circuit Breakers</strong>
+          <span>Per-model and per-region breakers shed load before failures cascade.</span>
+        </div>
+        <div class="control-card">
+          <strong>Capacity Readiness</strong>
+          <span>Quota, throughput, and regional headroom are monitored before saturation.</span>
+        </div>
+        <div class="control-card">
+          <strong>Kill Switch</strong>
+          <span>Disable the Kong Codex route and enterprise token issuance to stop traffic.</span>
+        </div>
+      </div>
+      <div class="flow-strip" aria-label="Policy-approved model fallback order">
+        <div class="flow-step">
+          <strong><code>coding-frontier</code></strong>
+          GPT-5.5 / GPT-5.4 when approved.
+        </div>
+        <div class="flow-step">
+          <strong><code>coding-standard</code></strong>
+          Default approved coding model.
+        </div>
+        <div class="flow-step">
+          <strong><code>coding-economy</code></strong>
+          Lower-cost fallback for simple tasks.
+        </div>
+      </div>
+      <div class="status-row">
+        <div class="status-panel">
+          <strong>Fail Safe</strong>
+          Availability failures return clear, observable errors or policy-approved fallback.
+        </div>
+        <div class="status-panel">
+          <strong>Fail Closed</strong>
+          Auth, PHI, budget, missing <code>store=false</code>, and policy failures stop before Bedrock.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>10. Observability</h2>
+      <p>MLflow observes only sanitized Codex CLI telemetry. It is not used for application observability or billing.</p>
+      <img class="section-visual" src="assets/executive-observability-boundary-diagram.png" alt="Observability boundary diagram showing Codex CLI telemetry to OpenTelemetry Collector to MLflow, and Kong plus application telemetry to existing backend observability, with prohibited data blocked">
+      <p class="visual-caption">MLflow is intentionally scoped to sanitized Codex CLI metadata; application telemetry stays in the existing backend observability stack.</p>
+      <div class="grid two">
+        <div class="card">
+          <strong>Allowed in MLflow</strong>
+          Pseudonymous developer, team, and repo IDs; Codex version; model alias; session timing; tool category counts; approval counts; command success or failure class; latency; job family.
+        </div>
+        <div class="card">
+          <strong>Not Allowed in MLflow</strong>
+          Resolved Bedrock model ID, token or cost metadata, Bedrock error class, prompts, completions, PHI, source code, terminal output, diffs, secrets, or full transcripts.
+        </div>
+      </div>
+      <div class="callout">
+        MLflow records the requested model alias only. The actually served model, fallback events, token usage, and cost live in the metering store and existing backend observability stack.
+      </div>
+    </section>
+
+    <section>
+      <h2>11. Kong Platform and Routes</h2>
+      <p>Kong is deployed in self-hosted hybrid mode with the data plane inside the healthcare AWS/VPC boundary.</p>
+      <div class="route-list">
+        <div class="route">
+          <div>
+            <strong><code>/codex/v1/responses</code></strong>
+            <div class="route-meta">Codex CLI model traffic</div>
+          </div>
+          <div>Managed macOS developer environments route through Kong before policy and Bedrock Mantle.</div>
+          <span class="route-phase">Active path</span>
+        </div>
+        <div class="route">
+          <div>
+            <strong><code>/ai/dev/coding</code></strong>
+            <div class="route-meta">Application coding traffic</div>
+          </div>
+          <div>Approved app traffic enters later, after the same authorization, PHI, metering, and resilience controls pass.</div>
+          <span class="route-phase">Later phase</span>
+        </div>
+      </div>
+      <div class="control-strip" aria-label="Kong route controls">
+        <span>claims-based authorization</span>
+        <span>consumer allowlists</span>
+        <span>size limits</span>
+        <span>rate limits</span>
+        <span>timeouts</span>
+        <span>model-alias allowlists</span>
+        <span>metering</span>
+        <span>safe audit metadata</span>
+      </div>
+      <div class="callout warning">
+        Non-coding Agent AI routes remain blocked, including clinical drafting, patient messaging, diagnosis, treatment advice, claims automation, chart summarization, admin summarization, and policy search.
+      </div>
+    </section>
+
+    <section>
+      <h2>12. Coding Policy Services</h2>
+      <ul>
+        <li>Re-validate job-family and workflow authorization from token claims.</li>
+        <li>Resolve <code>coding-*</code> aliases to Bedrock Mantle model IDs server-side.</li>
+        <li>Enforce <code>store=false</code> and invoke Bedrock Mantle Responses.</li>
+        <li>Emit authoritative usage to metering.</li>
+        <li>Reject clinical, patient-facing, revenue-cycle, or operational healthcare requests.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>13. Bedrock Integration</h2>
+      <p>Bedrock is the regulated model runtime. The policy service is the only approved caller and enforces route, model, region, and retention controls before invocation.</p>
+      <div class="control-grid">
+        <div class="control-card">
+          <strong>Runtime Path</strong>
+          <span>Mantle Responses is the production API for OpenAI-compatible Codex traffic.</span>
+        </div>
+        <div class="control-card">
+          <strong>Execution Role</strong>
+          <span>Only the approved policy-service role can invoke Bedrock Mantle.</span>
+        </div>
+        <div class="control-card">
+          <strong>Retention Control</strong>
+          <span>Every request must include <code>store=false</code> before it leaves the policy service.</span>
+        </div>
+        <div class="control-card">
+          <strong>Non-Production APIs</strong>
+          <span>Chat Completions, Converse, and InvokeModel require separate approval.</span>
+        </div>
+      </div>
+      <div class="status-row">
+        <div class="status-panel">
+          <strong>IAM and Scope</strong>
+          <span class="badge"><code>bedrock-mantle:CreateInference</code></span>
+          <span class="badge">approved model IDs</span>
+          <span class="badge">approved regions</span>
+          <span class="badge">CloudTrail validation</span>
+        </div>
+        <div class="status-panel">
+          <strong>Model Enablement</strong>
+          <span class="badge">gpt-oss first</span>
+          <span class="badge">frontier gated</span>
+          <span class="badge">quotas confirmed</span>
+          <span class="badge">budgets set</span>
+        </div>
+      </div>
+      <div class="callout warning">
+        Before any PHI route is considered, confirm AWS BAA coverage, Amazon Bedrock HIPAA eligible-service status and exclusions, region support, model availability, logging controls, and route-specific security approvals.
+      </div>
+      <p class="sources">Sources: <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html">AWS Bedrock Mantle docs</a>, <a href="https://aws.amazon.com/compliance/hipaa-eligible-services-reference/">AWS HIPAA Eligible Services Reference</a>.</p>
+    </section>
+
+    <section>
+      <h2>14. Rollout Sequence</h2>
+      <img class="section-visual" src="assets/executive-rollout-roadmap-diagram.png" alt="Rollout roadmap diagram showing phases 0 through 6 from foundations to PHI enablement with approval gates">
+      <p class="visual-caption">The rollout uses explicit gates; each phase requires signoff before the next phase starts.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Scope</th>
+            <th>Executive Gate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0. Foundations</td>
+            <td>Build Kong, policy service, Bedrock Mantle Responses integration, metering, OTel to MLflow.</td>
+            <td>Threat model; gpt-oss region, access, endpoint, and quota readiness; Mantle Responses load test; <code>store=false</code> enforcement; metering reconciliation; managed Mac local-retention evidence; kill switch.</td>
+          </tr>
+          <tr>
+            <td>1. Synthetic Pilot</td>
+            <td>3-5 managed macOS developer environments, synthetic repos only.</td>
+            <td>No PHI leakage in logs, MLflow, metering, or unmanaged local endpoint artifacts; auth fail-closed; budgets enforce.</td>
+          </tr>
+          <tr>
+            <td>2. Non-PHI Internal Repos</td>
+            <td>Approved SWE and PM users on non-PHI coding repos.</td>
+            <td>Finance validates showback, Risk and Privacy accept residual risk.</td>
+          </tr>
+          <tr>
+            <td>3. Dashboards</td>
+            <td>Adoption, latency, failure, approval, model usage, and cost views.</td>
+            <td>Dashboards answer required operating questions.</td>
+          </tr>
+          <tr>
+            <td>4. Frontier Models</td>
+            <td>Optional gated enablement of frontier aliases.</td>
+            <td><code>openai.gpt-5.5</code> and <code>openai.gpt-5.4</code> access, compliance sign-off, BAA/HIPAA eligible-service review, quotas, route controls, and budgets set.</td>
+          </tr>
+          <tr>
+            <td>5. Application Coding Traffic</td>
+            <td><code>/ai/dev/coding</code> synthetic then production coding-only app traffic.</td>
+            <td>Same authorization, PHI, metering, and resilience controls pass.</td>
+          </tr>
+          <tr>
+            <td>6. PHI Enablement</td>
+            <td>Only if pursued later.</td>
+            <td>Separate explicit approval by Security, Risk, Privacy, and Legal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>15. Test Plan</h2>
+      <div class="grid">
+        <div class="card"><strong>Identity</strong>Kong and policy service reject unauthorized users, spoofed headers, invalid tokens, and non-coding Agent AI requests.</div>
+        <div class="card"><strong>Bedrock Responses</strong>Responses streams map correctly through Bedrock Mantle with <code>store=false</code>. Converse, InvokeModel, and Chat Completions remain separately approved paths only.</div>
+        <div class="card"><strong>Metering</strong>Every request creates an authoritative metering record with no raw content.</div>
+        <div class="card"><strong>PHI</strong>Synthetic PHI fixtures are blocked and never appear in logs, MLflow, metering, or unmanaged local endpoint artifacts.</div>
+        <div class="card"><strong>Endpoint</strong>Managed Mac checks cover Codex logs, terminal scrollback, shell history, crash reports, SQLite/runtime state, temporary files, and endpoint telemetry collection.</div>
+        <div class="card"><strong>Resilience</strong>Retries, circuit breakers, fallback, and kill switch are tested.</div>
+        <div class="card"><strong>End to End</strong>Approved coding requests reach Bedrock through Kong and return successfully.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>16. Assumptions</h2>
+      <ul>
+        <li>Bedrock is the single regulated model runtime.</li>
+        <li>Codex CLI runs only on managed macOS developer environments.</li>
+        <li>Windows and Linux developer endpoints are out of scope.</li>
+        <li>Kong is the front door for Codex and application AI traffic.</li>
+        <li>Production integration uses Bedrock Mantle Responses with <code>store=false</code>; Converse, InvokeModel, and Chat Completions require separate approval.</li>
+        <li>Client headers are not trusted for identity or authorization.</li>
+        <li>Metering and billing are required as the usage and chargeback system of record.</li>
+        <li>MLflow observes only sanitized Codex CLI telemetry.</li>
+        <li>Supported users are SWE and PM job families only.</li>
+        <li>Supported workflows are coding and code-adjacent product-to-engineering workflows only.</li>
+        <li>Direct OpenAI API access and Codex Cloud are out of scope.</li>
+      </ul>
+    </section>
+
+    <footer>
+      Source: healthcare-ai-platform-consolidated-plan.md. This executive plan intentionally simplifies implementation detail while preserving the same section structure and control decisions.
+    </footer>
+  </main>
+</body>
+</html>

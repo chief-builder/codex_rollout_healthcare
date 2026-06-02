@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="980" viewBox="0 0 1900 980">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .title { font: 700 48px Arial, sans-serif; fill: #08265a; }
+      .subtitle { font: 400 26px Arial, sans-serif; fill: #4a5870; }
+      .step-num { font: 700 28px Arial, sans-serif; fill: #ffffff; }
+      .step-title { font: 700 25px Arial, sans-serif; fill: #08265a; }
+      .body { font: 400 20px Arial, sans-serif; fill: #172033; }
+      .small { font: 400 18px Arial, sans-serif; fill: #172033; }
+      .tiny { font: 400 16px Arial, sans-serif; fill: #4a5870; }
+      .blue { fill: #08265a; }
+      .teal { fill: #0f766e; }
+      .green { fill: #2f7d32; }
+      .gold { fill: #bd8a00; }
+      .red { fill: #c7352d; }
+      .step { fill: #ffffff; stroke: #d9e0ea; stroke-width: 2; }
+      .step-accent { fill: #f7fbfd; }
+      .bedrock { fill: #fffdf2; stroke: #bd8a00; stroke-width: 2; }
+      .guard { fill: #effaf8; stroke: #0f766e; stroke-width: 2; }
+      .fail { fill: #fff7f7; stroke: #c7352d; stroke-width: 2; }
+      .meter { fill: #f6fbf6; stroke: #2f7d32; stroke-width: 2; }
+      .obs { fill: #f5f9ff; stroke: #1d5fbf; stroke-width: 2; }
+      .line { stroke: #08265a; stroke-width: 5; fill: none; marker-end: url(#arrow); }
+      .line-soft { stroke: #d9e0ea; stroke-width: 2; fill: none; }
+      .dash-blue { stroke: #1d5fbf; stroke-width: 4; stroke-dasharray: 7 9; fill: none; marker-end: url(#arrowBlue); }
+      .dash-green { stroke: #2f7d32; stroke-width: 4; stroke-dasharray: 7 9; fill: none; marker-end: url(#arrowGreen); }
+      .dash-red { stroke: #c7352d; stroke-width: 4; stroke-dasharray: 9 9; fill: none; marker-end: url(#arrowRed); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#08265a"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d5fbf"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f7d32"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c7352d"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1900" height="980"/>
+
+  <text x="950" y="58" text-anchor="middle" class="title">Codex CLI Request Flow</text>
+  <text x="950" y="96" text-anchor="middle" class="subtitle">Gateway controls, Bedrock Mantle invocation, and separated telemetry</text>
+
+  <g transform="translate(30 150)">
+    <rect x="0" y="0" width="1840" height="290" rx="18" class="step"/>
+    <text x="38" y="48" class="step-title">Primary Request Path</text>
+
+    <g transform="translate(42 92)">
+      <rect width="205" height="154" rx="14" class="step"/>
+      <rect width="205" height="42" rx="14" class="step-accent"/>
+      <circle cx="28" cy="21" r="17" class="blue"/><text x="28" y="31" text-anchor="middle" class="step-num">1</text>
+      <text x="55" y="30" class="step-title">Codex CLI</text>
+      <text x="22" y="76" class="body">Managed Mac</text>
+      <text x="22" y="104" class="body">gets short-lived</text>
+      <text x="22" y="132" class="body">enterprise token</text>
+    </g>
+
+    <path d="M 254 169 H 314" class="line"/>
+
+    <g transform="translate(332 92)">
+      <rect width="205" height="154" rx="14" class="step"/>
+      <rect width="205" height="42" rx="14" class="step-accent"/>
+      <circle cx="28" cy="21" r="17" class="blue"/><text x="28" y="31" text-anchor="middle" class="step-num">2</text>
+      <text x="55" y="30" class="step-title">Kong</text>
+      <text x="22" y="76" class="body">Validates token,</text>
+      <text x="22" y="104" class="body">claims, rate limits,</text>
+      <text x="22" y="132" class="body">and budgets</text>
+    </g>
+
+    <path d="M 550 169 H 610" class="line"/>
+
+    <g transform="translate(628 92)">
+      <rect width="240" height="154" rx="14" class="guard"/>
+      <rect width="240" height="42" rx="14" fill="#e9f7f4"/>
+      <circle cx="28" cy="21" r="17" class="teal"/><text x="28" y="31" text-anchor="middle" class="step-num">3</text>
+      <text x="55" y="30" class="step-title">Policy Service</text>
+      <text x="22" y="76" class="body">Authorizes workflow,</text>
+      <text x="22" y="104" class="body">checks PHI, and</text>
+      <text x="22" y="132" class="body">resolves model alias</text>
+    </g>
+
+    <path d="M 884 169 H 944" class="line"/>
+
+    <g transform="translate(962 92)">
+      <rect width="255" height="154" rx="14" class="guard"/>
+      <rect width="255" height="42" rx="14" fill="#e9f7f4"/>
+      <circle cx="28" cy="21" r="17" class="teal"/><text x="28" y="31" text-anchor="middle" class="step-num">4</text>
+      <text x="55" y="30" class="step-title">Retention Guard</text>
+      <text x="22" y="76" class="body">Forces store=false</text>
+      <text x="22" y="104" class="body">before any Bedrock</text>
+      <text x="22" y="132" class="body">request is sent</text>
+    </g>
+
+    <path d="M 1234 169 H 1294" class="line"/>
+
+    <g transform="translate(1312 92)">
+      <rect width="235" height="154" rx="14" class="bedrock"/>
+      <rect width="235" height="42" rx="14" fill="#fff8dc"/>
+      <circle cx="28" cy="21" r="17" class="gold"/><text x="28" y="31" text-anchor="middle" class="step-num">5</text>
+      <text x="55" y="30" class="step-title">Bedrock Mantle</text>
+      <text x="22" y="76" class="body">Responses API</text>
+      <text x="22" y="104" class="body">serves OpenAI</text>
+      <text x="22" y="132" class="body">model on Bedrock</text>
+    </g>
+
+    <path d="M 1558 169 H 1616" class="line"/>
+
+    <g transform="translate(1634 92)">
+      <rect width="205" height="154" rx="14" class="step"/>
+      <rect width="205" height="42" rx="14" class="step-accent"/>
+      <circle cx="28" cy="21" r="17" class="blue"/><text x="28" y="31" text-anchor="middle" class="step-num">6</text>
+      <text x="55" y="30" class="step-title">Response</text>
+      <text x="22" y="76" class="body">Kong streams</text>
+      <text x="22" y="104" class="body">the completion</text>
+      <text x="22" y="132" class="body">back to Codex</text>
+    </g>
+  </g>
+
+  <g transform="translate(80 490)">
+    <rect x="0" y="0" width="560" height="160" rx="16" class="fail"/>
+    <text x="34" y="46" class="step-title" fill="#c7352d">Fail Closed Before Bedrock</text>
+    <text x="34" y="84" class="body">Unauthorized user, non-coding workflow, PHI risk,</text>
+    <text x="34" y="112" class="body">over-budget request, disallowed alias,</text>
+    <text x="34" y="140" class="body">or missing store=false.</text>
+  </g>
+
+  <g transform="translate(700 490)">
+    <rect x="0" y="0" width="430" height="160" rx="16" class="obs"/>
+    <text x="34" y="46" class="step-title">MLflow Observability</text>
+    <text x="34" y="86" class="body">Sanitized Codex metadata only:</text>
+    <text x="34" y="116" class="body">requested alias, timing, tool categories.</text>
+  </g>
+
+  <g transform="translate(1190 490)">
+    <rect x="0" y="0" width="560" height="160" rx="16" class="meter"/>
+    <text x="34" y="46" class="step-title">Metering and Chargeback</text>
+    <text x="34" y="86" class="body">Authoritative usage events:</text>
+    <text x="34" y="116" class="body">served model, tokens, cost, status, and request ID.</text>
+  </g>
+
+  <g transform="translate(180 730)">
+    <rect width="1540" height="150" rx="18" class="step"/>
+    <text x="46" y="56" class="step-title">Security by Design</text>
+    <line x1="270" y1="34" x2="270" y2="118" class="line-soft"/>
+    <text x="405" y="56" text-anchor="middle" class="small">Identity from</text>
+    <text x="405" y="84" text-anchor="middle" class="small">validated claims</text>
+    <line x1="550" y1="34" x2="550" y2="118" class="line-soft"/>
+    <text x="690" y="56" text-anchor="middle" class="small">SWE and PM</text>
+    <text x="690" y="84" text-anchor="middle" class="small">users only</text>
+    <line x1="840" y1="34" x2="840" y2="118" class="line-soft"/>
+    <text x="985" y="56" text-anchor="middle" class="small">Coding workflows</text>
+    <text x="985" y="84" text-anchor="middle" class="small">only</text>
+    <line x1="1140" y1="34" x2="1140" y2="118" class="line-soft"/>
+    <text x="1290" y="56" text-anchor="middle" class="small">No raw prompts, PHI,</text>
+    <text x="1290" y="84" text-anchor="middle" class="small">source, tokens, or cost in MLflow</text>
+  </g>
+
+  <g transform="translate(145 910)">
+    <line x1="0" y1="0" x2="68" y2="0" class="line"/>
+    <text x="88" y="6" class="tiny">Primary request path</text>
+    <line x1="330" y1="0" x2="398" y2="0" class="dash-red"/>
+    <text x="418" y="6" class="tiny">Fail-closed path</text>
+    <line x1="650" y1="0" x2="718" y2="0" class="dash-blue"/>
+    <text x="738" y="6" class="tiny">Sanitized observability</text>
+    <line x1="1030" y1="0" x2="1098" y2="0" class="dash-green"/>
+    <text x="1118" y="6" class="tiny">Metering system of record</text>
+  </g>
+</svg>

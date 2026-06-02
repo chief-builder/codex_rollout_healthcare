@@ -1,0 +1,12 @@
+{
+  "name": "healthcare-ai-platform-plan",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate:html": "node scripts/validate-executive-plan.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}
