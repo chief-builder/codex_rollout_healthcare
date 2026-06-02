@@ -5,7 +5,7 @@ import { chromium } from "playwright";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const htmlPath = path.join(root, "healthcare-ai-platform-executive-plan.html");
+const htmlPath = path.join(root, "codex_rollout_healthcare.html");
 const target = pathToFileURL(htmlPath).href;
 
 const viewports = [
@@ -13,13 +13,13 @@ const viewports = [
     name: "desktop",
     width: 1440,
     height: 1200,
-    screenshot: "/private/tmp/healthcare-ai-platform-executive-plan-desktop.png"
+    screenshot: "/private/tmp/codex-rollout-healthcare-desktop.png"
   },
   {
     name: "mobile",
     width: 390,
     height: 1000,
-    screenshot: "/private/tmp/healthcare-ai-platform-executive-plan-mobile.png"
+    screenshot: "/private/tmp/codex-rollout-healthcare-mobile.png"
   }
 ];
 
