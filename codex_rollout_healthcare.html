@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Executive Plan: Healthcare AI Coding Platform</title>
+  <meta
+    name="description"
+    content="Executive rollout plan for a regulated healthcare AI coding platform using Codex CLI, Kong, Bedrock, metering, and sanitized observability."
+  >
+  <title>Healthcare AI Coding Platform Rollout Plan</title>
   <style>
     :root {
       --ink: #172033;
@@ -524,8 +528,8 @@
 <body>
   <main>
     <header>
-      <h1>Executive Plan: Healthcare AI Coding Platform</h1>
-      <p class="subtitle">A controlled rollout for Codex CLI and coding-only AI workflows using Kong, AWS Bedrock-hosted OpenAI models, usage metering, and sanitized Codex observability.</p>
+      <h1>Healthcare AI Coding Platform Rollout Plan</h1>
+      <p class="subtitle">A controlled path to ship AI coding assistance in a regulated healthcare environment: Codex CLI on managed Macs, Kong and policy enforcement in front of Bedrock-hosted OpenAI models, request-level metering, and sanitized observability.</p>
       <div class="meta">
         <span class="pill">Audience: Executives, Security, Platform, Finance</span>
         <span class="pill">Users: Software Engineering + Product Managers only</span>
@@ -533,13 +537,28 @@
         <span class="pill">Endpoints: managed macOS only</span>
         <span class="pill">Runtime: AWS Bedrock</span>
         <span class="pill">Gateway: Kong</span>
+        <span class="pill">PHI: gated, not initial scope</span>
       </div>
     </header>
 
     <section>
       <h2>1. Summary</h2>
-      <p>The platform routes model traffic through Kong. Codex CLI runs on managed macOS developer environments, uses a Kong-fronted provider, Kong enforces identity and policy, a coding policy service forwards approved Responses-format requests to Amazon Bedrock Mantle, and all usage is metered for billing and audit.</p>
-      <p>MLflow is limited to sanitized Codex CLI observability. Backend, Kong, and application observability remain in the organization's existing observability stack.</p>
+      <p>This plan lets the organization adopt AI coding assistance without opening a general-purpose AI channel. The first release is coding-only, claims-authorized, non-PHI, and limited to managed macOS developer environments.</p>
+      <p>Codex CLI uses a Kong-fronted provider. Kong validates identity, budgets, and route policy; a coding policy service forwards approved Responses-format requests to Amazon Bedrock Mantle; and every request is metered for billing and audit. MLflow is limited to sanitized Codex CLI observability. Backend, Kong, and application observability remain in the organization's existing observability stack.</p>
+      <div class="grid">
+        <div class="card">
+          <strong>Business Outcome</strong>
+          Faster coding and product-to-engineering workflows with explicit controls for cost, identity, data retention, and audit evidence.
+        </div>
+        <div class="card">
+          <strong>Initial Guardrail</strong>
+          No PHI, no clinical workflows, no direct OpenAI API path, and no Codex Cloud in the regulated production path.
+        </div>
+        <div class="card">
+          <strong>Decision Gate</strong>
+          Each phase requires Cyber, Platform, Risk, Privacy, Legal, or Finance signoff before scope expands.
+        </div>
+      </div>
       <img class="hero-image" src="assets/executive-architecture-diagram.png" alt="Executive architecture diagram showing Codex CLI through Kong, policy and metering, AWS Bedrock, OpenAI models, MLflow observability, and billing ledger">
     </section>
 
@@ -936,7 +955,7 @@
     </section>
 
     <footer>
-      Source: healthcare-ai-platform-consolidated-plan.md. This executive plan intentionally simplifies implementation detail while preserving the same section structure and control decisions.
+      Source: healthcare-ai-platform-consolidated-plan.md. This executive plan intentionally simplifies implementation detail while preserving the same section structure and control decisions. Vendor references should be revalidated before implementation gates are approved.
     </footer>
   </main>
 </body>

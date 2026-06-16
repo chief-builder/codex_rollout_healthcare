@@ -1,11 +1,30 @@
 {
   "name": "healthcare-ai-platform-plan",
   "version": "1.0.0",
+  "description": "Executive rollout plan for a regulated healthcare AI coding platform using Codex, Kong, Bedrock, metering, and sanitized observability",
   "private": true,
   "type": "module",
+  "homepage": "https://chief-builder.github.io/codex_rollout_healthcare/",
   "scripts": {
-    "validate:html": "node scripts/validate-executive-plan.mjs"
+    "validate:html": "node scripts/validate-executive-plan.mjs",
+    "check": "npm run validate:html"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chief-builder/codex_rollout_healthcare.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chief-builder/codex_rollout_healthcare/issues"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "codex",
+    "healthcare",
+    "bedrock",
+    "kong",
+    "mlflow",
+    "governance"
+  ],
   "devDependencies": {
     "playwright": "^1.60.0"
   }

@@ -7,6 +7,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const htmlPath = path.join(root, "codex_rollout_healthcare.html");
 const target = pathToFileURL(htmlPath).href;
+const expectedTitle = "Healthcare AI Coding Platform Rollout Plan";
+const requiredText = [
+  "Business Outcome",
+  "Initial Guardrail",
+  "Decision Gate",
+  "PHI: gated, not initial scope"
+];
 
 const viewports = [
   {
@@ -77,6 +84,7 @@ for (const viewport of viewports) {
 
     return {
       title: document.title,
+      text: document.body.textContent ?? "",
       missingImages,
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
@@ -97,6 +105,14 @@ for (const viewport of viewports) {
   }
   if (result.missingImages.length > 0) {
     failures.push(`${viewport.name}: missing images: ${result.missingImages.join(", ")}`);
+  }
+  if (result.title !== expectedTitle) {
+    failures.push(`${viewport.name}: expected title "${expectedTitle}", found "${result.title}"`);
+  }
+  for (const text of requiredText) {
+    if (!result.text.includes(text)) {
+      failures.push(`${viewport.name}: missing required text "${text}"`);
+    }
   }
   if (result.scrollWidth > result.clientWidth) {
     failures.push(`${viewport.name}: horizontal overflow ${result.scrollWidth}px > ${result.clientWidth}px`);
