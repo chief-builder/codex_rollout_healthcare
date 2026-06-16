@@ -1,5 +1,6 @@
 import path from "node:path";
 import { existsSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 
@@ -20,13 +21,13 @@ const viewports = [
     name: "desktop",
     width: 1440,
     height: 1200,
-    screenshot: "/private/tmp/codex-rollout-healthcare-desktop.png"
+    screenshot: path.join(tmpdir(), "codex-rollout-healthcare-desktop.png")
   },
   {
     name: "mobile",
     width: 390,
     height: 1000,
-    screenshot: "/private/tmp/codex-rollout-healthcare-mobile.png"
+    screenshot: path.join(tmpdir(), "codex-rollout-healthcare-mobile.png")
   }
 ];
 
