@@ -6,12 +6,13 @@
   "type": "module",
   "homepage": "https://chief-builder.github.io/codex_rollout_healthcare/",
   "scripts": {
-    "validate:html": "node scripts/validate-executive-plan.mjs",
-    "check": "npm run validate:html",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm test",
     "lint": "html-validate index.html codex_rollout_healthcare.html && node scripts/lint-markdown.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc -p ."
+    "typecheck": "tsc -p .",
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=scripts/**"
   },
   "repository": {
     "type": "git",
