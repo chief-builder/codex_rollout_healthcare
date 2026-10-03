@@ -85,8 +85,14 @@ for (const viewport of viewports) {
           tmpdir(),
           `codex-rollout-healthcare-${viewport.name}.png`,
         );
-        await page.screenshot({ path: screenshot, fullPage: true });
-        console.log(`${viewport.name}: screenshot=${screenshot}`);
+        // The screenshot is a diagnostic aid, not a check; Chromium can
+        // intermittently fail full-page capture, so don't fail the suite.
+        try {
+          await page.screenshot({ path: screenshot, fullPage: true });
+          console.log(`${viewport.name}: screenshot=${screenshot}`);
+        } catch (error) {
+          console.warn(`${viewport.name}: screenshot skipped: ${error}`);
+        }
       } finally {
         await page.close();
       }
