@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800" role="img" aria-labelledby="title desc">
+  <title id="title">Observability boundaries</title>
+  <desc id="desc">Codex CLI exports OpenTelemetry to an internal Collector that strips prompts, completions, source, terminal output, PHI, secrets and diffs. Sanitized traces go to MLflow, which ingests OTLP traces only. Codex logs and metrics, plus Kong and application telemetry, go to the existing backend observability stack, which also keeps the served model, token and cost facts.</desc>
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #172033; }
+      .h1 { font-size: 40px; font-weight: 700; fill: #08265a; }
+      .sub { font-size: 21px; fill: #4a5870; }
+      .bt { font-size: 23px; font-weight: 700; }
+      .b { font-size: 18px; }
+      .s { font-size: 16px; fill: #4a5870; }
+      .lbl { font-size: 16px; font-weight: 700; }
+    </style>
+    <marker id="anavy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#08265a"/></marker>
+    <marker id="ablue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1d5fbf"/></marker>
+    <marker id="agreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2f7d32"/></marker>
+    <marker id="ared" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c7352d"/></marker>
+    <marker id="ateal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
+  </defs>
+  <rect width="1600" height="800" fill="#ffffff"/>
+  <text x="800.0" y="58" text-anchor="middle" class="h1">Observability Boundaries</text>
+  <text x="800.0" y="94" text-anchor="middle" class="sub">MLflow holds sanitized Codex traces only; everything else stays in backend observability</text>
+  <rect x="50" y="150" width="300" height="150" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="70" y="188" class="bt" style="fill:#08265a">Codex CLI</text>
+  <text x="70" y="222" class="b">OpenTelemetry export</text>
+  <text x="70" y="247" class="b">from managed Macs</text>
+  <rect x="420" y="150" width="330" height="150" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="440" y="188" class="bt" style="fill:#0f766e">OTel Collector</text>
+  <text x="440" y="222" class="b">Sanitization boundary:</text>
+  <text x="440" y="247" class="b">drops raw content</text>
+  <rect x="820" y="150" width="330" height="150" rx="12" fill="#f2f7ff" stroke="#1d5fbf" stroke-width="2.5"/>
+  <text x="840" y="188" class="bt" style="fill:#1d5fbf">MLflow</text>
+  <text x="840" y="222" class="b">OTLP traces (/v1/traces)</text>
+  <text x="840" y="247" class="b">alias, timing, counts</text>
+  <path d="M354 225 H414" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <path d="M754 225 H814" fill="none" stroke="#1d5fbf" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#ablue)"/>
+  <text x="784" y="212" class="s" text-anchor="middle">traces</text>
+  <rect x="820" y="420" width="330" height="170" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="840" y="458" class="bt" style="fill:#08265a">Backend Observability</text>
+  <text x="840" y="492" class="b">Codex logs and metrics,</text>
+  <text x="840" y="517" class="b">Kong and app telemetry,</text>
+  <text x="840" y="542" class="b">served model and cost</text>
+  <path d="M700 304 V370 H985 V414" fill="none" stroke="#08265a" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#anavy)"/>
+  <text x="715" y="360" class="s" text-anchor="start">logs + metrics</text>
+  <rect x="420" y="420" width="330" height="170" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="440" y="458" class="bt" style="fill:#0f766e">Kong + Application</text>
+  <text x="440" y="492" class="b">Gateway metrics, app</text>
+  <text x="440" y="517" class="b">logs, traces, policy-</text>
+  <text x="440" y="542" class="b">service audit events</text>
+  <path d="M754 540 H814" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="1230" y="150" width="320" height="440" rx="12" fill="#fff5f5" stroke="#c7352d" stroke-width="2.5"/>
+  <text x="1250" y="188" class="bt" style="fill:#c7352d">Never Exported</text>
+  <text x="1250" y="222" class="b">No prompts</text>
+  <text x="1250" y="247" class="b">No completions</text>
+  <text x="1250" y="272" class="b">No reasoning content</text>
+  <text x="1250" y="297" class="b">No source code</text>
+  <text x="1250" y="322" class="b">No terminal output</text>
+  <text x="1250" y="347" class="b">No PHI</text>
+  <text x="1250" y="372" class="b">No secrets</text>
+  <text x="1250" y="397" class="b">No diffs</text>
+  <rect x="50" y="640" width="1500" height="110" rx="12" fill="#ffffff" stroke="#d9e0ea" stroke-width="2.5"/>
+  <text x="70" y="678" class="bt" style="fill:#08265a">Key principle</text>
+  <text x="70" y="720" class="b" text-anchor="start">MLflow is for sanitized Codex CLI traces only. MLflow does not ingest OTLP logs or metrics.</text>
+</svg>

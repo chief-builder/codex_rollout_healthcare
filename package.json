@@ -1,13 +1,19 @@
 {
   "name": "healthcare-ai-platform-plan",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Executive rollout plan for a regulated healthcare AI coding platform using Codex, Kong, Bedrock, metering, and sanitized observability",
   "private": true,
   "type": "module",
   "homepage": "https://chief-builder.github.io/codex_rollout_healthcare/",
   "scripts": {
-    "validate:html": "node scripts/validate-executive-plan.mjs",
-    "check": "npm run validate:html"
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm test",
+    "lint": "html-validate index.html codex_rollout_healthcare.html && node scripts/lint-markdown.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc -p .",
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=scripts/**",
+    "build": "node scripts/build-site.mjs"
   },
   "repository": {
     "type": "git",
@@ -16,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/chief-builder/codex_rollout_healthcare/issues"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "keywords": [
     "codex",
     "healthcare",
@@ -26,6 +32,14 @@
     "governance"
   ],
   "devDependencies": {
-    "playwright": "^1.60.0"
+    "@types/node": "^24.19.1",
+    "html-validate": "^11.16.1",
+    "markdownlint": "^0.41.1",
+    "playwright": "^1.63.0",
+    "prettier": "^3.9.9",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=24.8.0"
   }
 }

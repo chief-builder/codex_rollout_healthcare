@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="820" viewBox="0 0 1600 820" role="img" aria-labelledby="title desc">
+  <title id="title">Identity and governance flow</title>
+  <desc id="desc">An authorized Software Engineering or Product Manager user gets a short-lived enterprise token with job-family claims. Kong validates the token and claims, the policy service re-verifies claims and enforces coding-only policy, model allowlist and PHI checks, and only then is the coding request sent to Bedrock Runtime. Requests that fail at Kong or the policy service are blocked.</desc>
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #172033; }
+      .h1 { font-size: 40px; font-weight: 700; fill: #08265a; }
+      .sub { font-size: 21px; fill: #4a5870; }
+      .bt { font-size: 23px; font-weight: 700; }
+      .b { font-size: 18px; }
+      .s { font-size: 16px; fill: #4a5870; }
+      .lbl { font-size: 16px; font-weight: 700; }
+    </style>
+    <marker id="anavy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#08265a"/></marker>
+    <marker id="ablue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1d5fbf"/></marker>
+    <marker id="agreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2f7d32"/></marker>
+    <marker id="ared" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c7352d"/></marker>
+    <marker id="ateal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
+  </defs>
+  <rect width="1600" height="820" fill="#ffffff"/>
+  <text x="800.0" y="58" text-anchor="middle" class="h1">Identity and Governance Flow</text>
+  <text x="800.0" y="94" text-anchor="middle" class="sub">Identity comes from validated token claims, checked twice before any model request</text>
+  <rect x="45" y="150" width="270" height="190" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <circle cx="75" cy="180" r="16" fill="#08265a"/><text x="75" y="187" text-anchor="middle" class="lbl" style="fill:#fff">1</text>
+  <text x="101" y="188" class="bt" style="fill:#08265a">SWE / PM User</text>
+  <text x="65" y="222" class="b">Authorized Software</text>
+  <text x="65" y="247" class="b">Engineering or Product</text>
+  <text x="65" y="272" class="b">Manager user</text>
+  <rect x="355" y="150" width="270" height="190" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <circle cx="385" cy="180" r="16" fill="#0f766e"/><text x="385" y="187" text-anchor="middle" class="lbl" style="fill:#fff">2</text>
+  <text x="411" y="188" class="bt" style="fill:#0f766e">Enterprise Token</text>
+  <text x="375" y="222" class="b">Short-lived, signed,</text>
+  <text x="375" y="247" class="b">with user and</text>
+  <text x="375" y="272" class="b">job-family claims</text>
+  <path d="M319 245.0 H350" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="665" y="150" width="270" height="190" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <circle cx="695" cy="180" r="16" fill="#0f766e"/><text x="695" y="187" text-anchor="middle" class="lbl" style="fill:#fff">3</text>
+  <text x="721" y="188" class="bt" style="fill:#0f766e">Kong Gateway</text>
+  <text x="685" y="222" class="b">Validates issuer,</text>
+  <text x="685" y="247" class="b">signature, and required</text>
+  <text x="685" y="272" class="b">claims; strips X-User-*</text>
+  <path d="M629 245.0 H660" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="975" y="150" width="270" height="190" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <circle cx="1005" cy="180" r="16" fill="#0f766e"/><text x="1005" y="187" text-anchor="middle" class="lbl" style="fill:#fff">4</text>
+  <text x="1031" y="188" class="bt" style="fill:#0f766e">Policy Service</text>
+  <text x="995" y="222" class="b">Re-verifies claims;</text>
+  <text x="995" y="247" class="b">coding-only policy,</text>
+  <text x="995" y="272" class="b">alias allowlist, PHI</text>
+  <path d="M939 245.0 H970" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="1285" y="150" width="270" height="190" rx="12" fill="#f3faf3" stroke="#2f7d32" stroke-width="2.5"/>
+  <circle cx="1315" cy="180" r="16" fill="#2f7d32"/><text x="1315" y="187" text-anchor="middle" class="lbl" style="fill:#fff">5</text>
+  <text x="1341" y="188" class="bt" style="fill:#2f7d32">Approved Request</text>
+  <text x="1305" y="222" class="b">Forwarded to</text>
+  <text x="1305" y="247" class="b">Bedrock Runtime</text>
+  <text x="1305" y="272" class="b">with store=false</text>
+  <path d="M1249 245.0 H1280" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="560" y="450" width="660" height="170" rx="12" fill="#fff5f5" stroke="#c7352d" stroke-width="2.5"/>
+  <text x="580" y="488" class="bt" style="fill:#c7352d">Blocked (fail closed)</text>
+  <text x="580" y="522" class="b">Missing or invalid token or claims</text>
+  <text x="580" y="547" class="b">Job family not SWE or PM</text>
+  <text x="580" y="572" class="b">Non-coding workflow, PHI, or disallowed alias</text>
+  <path d="M800.0 344 V444" fill="none" stroke="#c7352d" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#ared)"/>
+  <path d="M1110.0 344 V444" fill="none" stroke="#c7352d" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#ared)"/>
+  <rect x="50" y="670" width="1500" height="100" rx="12" fill="#ffffff" stroke="#d9e0ea" stroke-width="2.5"/>
+  <text x="70" y="708" class="bt" style="fill:#08265a">Principles</text>
+  <text x="80" y="745" class="b" text-anchor="start">Least privilege: SWE and PM only</text>
+  <text x="450" y="745" class="b" text-anchor="start">Verify twice: Kong and policy service</text>
+  <text x="820" y="745" class="b" text-anchor="start">Client headers never trusted</text>
+  <text x="1190" y="745" class="b" text-anchor="start">Every decision audited</text>
+</svg>
