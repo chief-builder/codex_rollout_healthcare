@@ -568,7 +568,7 @@
         <p>
           Codex CLI uses a Kong-fronted provider. Kong validates identity,
           budgets, and route policy; a coding policy service forwards approved
-          Responses-format requests to Amazon Bedrock Mantle; and every request
+          Responses-format requests to Amazon Bedrock Runtime; and every request
           is metered for billing and audit. MLflow is limited to sanitized Codex
           CLI observability. Backend, Kong, and application observability remain
           in the organization's existing observability stack.
@@ -613,8 +613,8 @@
             ><span>Job family, workflow, PHI checks, store=false</span>
           </div>
           <div class="node">
-            <strong>Bedrock Mantle</strong
-            ><span>OpenAI Responses endpoint</span>
+            <strong>Bedrock Runtime</strong
+            ><span>OpenAI Responses endpoint, US Regions</span>
           </div>
           <div class="node">
             <strong>OpenAI Models</strong><span>Hosted on AWS Bedrock</span>
@@ -623,8 +623,9 @@
         <div class="grid two">
           <div class="card">
             <strong>Observability Side Path</strong>
-            Codex CLI emits sanitized OpenTelemetry to an internal Collector,
-            then to self-hosted MLflow.
+            Codex CLI emits sanitized OpenTelemetry to an internal Collector.
+            Traces go to self-hosted MLflow; logs and metrics go to the existing
+            backend observability stack.
           </div>
           <div class="card">
             <strong>Billing Side Path</strong>
@@ -675,10 +676,11 @@
       <section>
         <h2>4. Model Strategy</h2>
         <p>
-          AWS Bedrock is the regulated runtime for both open-weight and frontier
-          OpenAI models. GPT-5.5, GPT-5.4, and Codex from OpenAI are generally
-          available on Amazon Bedrock as of June 1, 2026. Clients use simple
-          aliases; raw Bedrock Mantle model IDs are resolved server-side.
+          AWS Bedrock is the regulated runtime for every model tier. As of
+          2026-10-02, GPT-6 Astra, GPT-6.1 Sol, GPT-6 Sol, and GPT-6 Luna are
+          Active OpenAI models on Amazon Bedrock, available through US
+          cross-Region inference profiles. Clients use simple aliases; inference
+          profile IDs are resolved server-side.
         </p>
         <table>
           <thead>
@@ -692,55 +694,59 @@
           <tbody>
             <tr>
               <td><code>coding-economy</code></td>
-              <td><code>openai.gpt-oss-20b</code></td>
+              <td><code>us.openai.gpt-6-luna</code></td>
               <td>Lower-cost tests and simple coding tasks</td>
               <td>
-                <span class="status">GA; gated</span><br />Approved region,
-                account access, endpoint availability, and quotas required.
+                <span class="status">Active; gated</span><br />Approved Regions,
+                account access, and quotas required.
               </td>
             </tr>
             <tr>
               <td><code>coding-standard</code></td>
-              <td><code>openai.gpt-oss-120b</code></td>
+              <td><code>us.openai.gpt-6.1-sol</code></td>
               <td>Default coding assistant model</td>
               <td>
-                <span class="status">GA; gated</span><br />Approved region,
-                account access, endpoint availability, and quotas required.
+                <span class="status">Active; gated</span><br />Approved Regions,
+                account access, and quotas required.
               </td>
             </tr>
             <tr>
               <td><code>coding-frontier</code></td>
-              <td><code>openai.gpt-5.5</code></td>
+              <td><code>us.openai.gpt-6-astra</code></td>
               <td>Higher-complexity coding workflows</td>
               <td>
-                <span class="status">GA; gated</span><br />Healthcare approvals,
-                budgets, quotas, and route controls required.
+                <span class="status">Active; gated</span><br />Healthcare
+                approvals, budgets, quotas, and route controls required.
               </td>
             </tr>
             <tr>
               <td><code>coding-frontier-p</code></td>
-              <td><code>openai.gpt-5.4</code></td>
+              <td><code>us.openai.gpt-6-sol</code></td>
               <td>Secondary frontier evaluation</td>
               <td>
-                <span class="status">GA; gated</span><br />Same healthcare
+                <span class="status">Active; gated</span><br />Same healthcare
                 controls.
               </td>
             </tr>
           </tbody>
         </table>
+        <p>
+          The earlier open-weight tier (gpt-oss) is retired: no newer
+          open-weight OpenAI coding model is listed on Bedrock, and gpt-oss does
+          not support the Responses API on Bedrock Runtime.
+        </p>
         <p class="sources">
           Sources:
           <a
-            href="https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-openai-models-codex-generally-available/"
-            >AWS GA announcement</a
+            href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards-openai.html"
+            >AWS OpenAI model cards</a
           >,
           <a
-            href="https://developers.openai.com/api/docs/guides/latest-model.md"
+            href="https://aws.amazon.com/about-aws/whats-new/2026/09/openai-gpt-6-1-sol-on-amazon-bedrock/"
+            >AWS GPT-6.1 Sol announcement</a
+          >,
+          <a href="https://developers.openai.com/api/docs/guides/latest-model"
             >OpenAI latest-model guide</a
-          >,
-          <a
-            href="https://developers.openai.com/api/docs/guides/amazon-bedrock#make-responses-api-requests"
-            >OpenAI Amazon Bedrock guide</a
           >.
         </p>
       </section>
@@ -748,15 +754,17 @@
       <section>
         <h2>5. Bedrock Responses Integration</h2>
         <p>
-          Codex CLI speaks the OpenAI Responses wire API. Amazon Bedrock now
-          exposes the OpenAI Responses API through the Bedrock Mantle endpoint,
-          so the production path forwards approved Responses-format requests
-          instead of translating them to Converse.
+          Codex CLI speaks the OpenAI Responses wire API. Amazon Bedrock
+          Runtime, the endpoint AWS recommends for most new applications,
+          exposes the OpenAI Responses API with streaming and client-side tool
+          calls, so the production path forwards approved Responses-format
+          requests without a translation layer. US cross-Region inference
+          profiles keep requests within AWS Regions in the US.
         </p>
         <div class="swimlane">
           <div class="lane-label">Production path</div>
           <div class="lane-content">
-            Responses API request -> Kong -> policy service -> Bedrock Mantle
+            Responses API request -> Kong -> policy service -> Bedrock Runtime
             <code>/openai/v1/responses</code> with <code>store=false</code> ->
             Responses-format stream back to Codex.
           </div>
@@ -764,29 +772,32 @@
         <div class="swimlane">
           <div class="lane-label">Fallback path</div>
           <div class="lane-content">
-            Converse or InvokeModel fallback is separately approved only for a
-            feature or model gap, and requires its own translation, metering,
-            and retention controls.
+            Bedrock Mantle, Converse, or InvokeModel fallback is separately
+            approved only for a feature or model gap, and requires its own
+            metering and retention controls.
           </div>
         </div>
         <div class="callout">
-          The policy service enforces <code>store=false</code> because AWS
-          documents that this setting prevents Bedrock from retaining request or
-          response data.
+          Bedrock Runtime keeps responses by default (<code>store</code>
+          defaults to <code>true</code>). AWS documents that
+          <code>store=false</code> alone does not guarantee zero data retention,
+          so the policy service forces <code>store=false</code> <em>and</em> the
+          account data retention mode is set to <code>none</code> in every
+          approved US Region.
         </div>
         <p class="sources">
           Sources:
           <a
-            href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html"
-            >AWS Bedrock Mantle Responses API</a
+            href="https://docs.aws.amazon.com/bedrock/latest/userguide/inference-responses-api.html"
+            >AWS Responses API on Bedrock</a
           >,
           <a
-            href="https://docs.aws.amazon.com/bedrock/latest/userguide/apis.html"
-            >AWS supported API patterns</a
+            href="https://docs.aws.amazon.com/bedrock/latest/userguide/endpoints.html"
+            >AWS Bedrock endpoints</a
           >,
           <a
-            href="https://developers.openai.com/api/docs/guides/amazon-bedrock#make-responses-api-requests"
-            >OpenAI Bedrock Responses examples</a
+            href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html"
+            >AWS data retention modes</a
           >.
         </p>
       </section>
@@ -907,13 +918,15 @@
         <div class="callout warning">
           Detection has residual risk. Early phases use synthetic or non-PHI
           repos so detector tuning cannot expose real PHI. Bedrock requests must
-          include <code>store=false</code>.
+          include <code>store=false</code>, the account retention mode is
+          <code>none</code>, and Bedrock Guardrails do not apply to the
+          Responses API, so detection stays in the policy service.
         </div>
         <p class="sources">
           Sources:
           <a
-            href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html"
-            >AWS Bedrock Mantle retention behavior</a
+            href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html"
+            >AWS Bedrock data retention modes</a
           >,
           <a
             href="https://aws.amazon.com/compliance/hipaa-eligible-services-reference/"
@@ -932,7 +945,7 @@
           <div class="control-card">
             <strong>Retries</strong>
             <span
-              >Bounded exponential backoff for Bedrock Mantle throttles and
+              >Bounded exponential backoff for Bedrock Runtime throttles and
               transient 5xx failures.</span
             >
           </div>
@@ -946,7 +959,8 @@
           <div class="control-card">
             <strong>Capacity Readiness</strong>
             <span
-              >Quota, throughput, and regional headroom are monitored before
+              >Quota, throughput, and headroom across the approved US
+              cross-Region inference Regions are monitored before
               saturation.</span
             >
           </div>
@@ -965,15 +979,15 @@
         >
           <div class="flow-step">
             <strong><code>coding-frontier</code></strong>
-            GPT-5.5 / GPT-5.4 when approved.
+            GPT-6 Astra / GPT-6 Sol when approved.
           </div>
           <div class="flow-step">
             <strong><code>coding-standard</code></strong>
-            Default approved coding model.
+            GPT-6.1 Sol, the default approved coding model.
           </div>
           <div class="flow-step">
             <strong><code>coding-economy</code></strong>
-            Lower-cost fallback for simple tasks.
+            GPT-6 Luna, the lower-cost fallback for simple tasks.
           </div>
         </div>
         <div class="status-row">
@@ -993,7 +1007,9 @@
       <section>
         <h2>10. Observability</h2>
         <p>
-          MLflow observes only sanitized Codex CLI telemetry. It is not used for
+          MLflow observes only sanitized Codex CLI traces (MLflow ingests OTLP
+          traces, not logs or metrics). Codex logs and metrics go to the
+          existing backend observability stack. MLflow is not used for
           application observability or billing.
         </p>
         <img
@@ -1031,7 +1047,8 @@
         <h2>11. Kong Platform and Routes</h2>
         <p>
           Kong is deployed in self-hosted hybrid mode with the data plane inside
-          the healthcare AWS/VPC boundary.
+          the healthcare AWS/VPC boundary. Kong's OpenID Connect and mTLS Auth
+          plugins are Enterprise-only, so a Kong Enterprise license is required.
         </p>
         <div class="route-list">
           <div class="route">
@@ -1041,7 +1058,7 @@
             </div>
             <div>
               Managed macOS developer environments route through Kong before
-              policy and Bedrock Mantle.
+              policy and Bedrock Runtime.
             </div>
             <span class="route-phase">Active path</span>
           </div>
@@ -1086,12 +1103,12 @@
             Re-validate job-family and workflow authorization from token claims.
           </li>
           <li>
-            Resolve <code>coding-*</code> aliases to Bedrock Mantle model IDs
-            server-side.
+            Resolve <code>coding-*</code> aliases to Bedrock Runtime inference
+            profile IDs server-side.
           </li>
           <li>
-            Enforce <code>store=false</code> and invoke Bedrock Mantle
-            Responses.
+            Enforce <code>store=false</code>, reject
+            <code>background=true</code>, and invoke Bedrock Runtime Responses.
           </li>
           <li>Emit authoritative usage to metering.</li>
           <li>
@@ -1112,45 +1129,46 @@
           <div class="control-card">
             <strong>Runtime Path</strong>
             <span
-              >Mantle Responses is the production API for OpenAI-compatible
-              Codex traffic.</span
+              >Bedrock Runtime Responses with US cross-Region inference profiles
+              is the production API for Codex traffic.</span
             >
           </div>
           <div class="control-card">
             <strong>Execution Role</strong>
             <span
-              >Only the approved policy-service role can invoke Bedrock
-              Mantle.</span
+              >Only the approved policy-service role can invoke Bedrock.</span
             >
           </div>
           <div class="control-card">
             <strong>Retention Control</strong>
             <span
-              >Every request must include <code>store=false</code> before it
-              leaves the policy service.</span
+              >Every request includes <code>store=false</code>, and account
+              retention mode <code>none</code> is enforced by SCP in every
+              approved Region.</span
             >
           </div>
           <div class="control-card">
             <strong>Non-Production APIs</strong>
             <span
-              >Chat Completions, Converse, and InvokeModel require separate
-              approval.</span
+              >Bedrock Mantle, Chat Completions, Converse, and InvokeModel
+              require separate approval.</span
             >
           </div>
         </div>
         <div class="status-row">
           <div class="status-panel">
             <strong>IAM and Scope</strong>
+            <span class="badge"><code>bedrock:InvokeModel</code></span>
             <span class="badge"
-              ><code>bedrock-mantle:CreateInference</code></span
+              ><code>bedrock:InvokeModelWithResponseStream</code></span
             >
-            <span class="badge">approved model IDs</span>
-            <span class="badge">approved regions</span>
+            <span class="badge">approved inference profiles</span>
+            <span class="badge">US Regions only</span>
             <span class="badge">CloudTrail validation</span>
           </div>
           <div class="status-panel">
             <strong>Model Enablement</strong>
-            <span class="badge">gpt-oss first</span>
+            <span class="badge">GPT-6 Luna + GPT-6.1 Sol first</span>
             <span class="badge">frontier gated</span>
             <span class="badge">quotas confirmed</span>
             <span class="badge">budgets set</span>
@@ -1158,15 +1176,15 @@
         </div>
         <div class="callout warning">
           Before any PHI route is considered, confirm AWS BAA coverage, Amazon
-          Bedrock HIPAA eligible-service status and exclusions, region support,
-          model availability, logging controls, and route-specific security
-          approvals.
+          Bedrock HIPAA eligible-service status and exclusions (including
+          cross-Region inference), region support, model availability, logging
+          controls, and route-specific security approvals.
         </div>
         <p class="sources">
           Sources:
           <a
-            href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html"
-            >AWS Bedrock Mantle docs</a
+            href="https://docs.aws.amazon.com/bedrock/latest/userguide/geographic-cross-region-inference.html"
+            >AWS geographic cross-Region inference</a
           >,
           <a
             href="https://aws.amazon.com/compliance/hipaa-eligible-services-reference/"
@@ -1198,14 +1216,15 @@
             <tr>
               <td>0. Foundations</td>
               <td>
-                Build Kong, policy service, Bedrock Mantle Responses
+                Build Kong, policy service, Bedrock Runtime Responses
                 integration, metering, OTel to MLflow.
               </td>
               <td>
-                Threat model; gpt-oss region, access, endpoint, and quota
-                readiness; Mantle Responses load test;
-                <code>store=false</code> enforcement; metering reconciliation;
-                managed Mac local-retention evidence; kill switch.
+                Threat model; GPT-6 Luna and GPT-6.1 Sol Region, access, and
+                quota readiness; Runtime Responses load test;
+                <code>store=false</code> and retention mode
+                <code>none</code> enforcement; metering reconciliation; managed
+                Mac local-retention evidence; kill switch.
               </td>
             </tr>
             <tr>
@@ -1238,8 +1257,8 @@
               <td>4. Frontier Models</td>
               <td>Optional gated enablement of frontier aliases.</td>
               <td>
-                <code>openai.gpt-5.5</code> and
-                <code>openai.gpt-5.4</code> access, compliance sign-off,
+                <code>us.openai.gpt-6-astra</code> and
+                <code>us.openai.gpt-6-sol</code> access, compliance sign-off,
                 BAA/HIPAA eligible-service review, quotas, route controls, and
                 budgets set.
               </td>
@@ -1276,7 +1295,8 @@
           </div>
           <div class="card">
             <strong>Bedrock Responses</strong>Responses streams map correctly
-            through Bedrock Mantle with <code>store=false</code>. Converse,
+            through Bedrock Runtime with <code>store=false</code>; a
+            <code>store=true</code> probe is rejected. Mantle, Converse,
             InvokeModel, and Chat Completions remain separately approved paths
             only.
           </div>
@@ -1313,8 +1333,9 @@
           <li>Windows and Linux developer endpoints are out of scope.</li>
           <li>Kong is the front door for Codex and application AI traffic.</li>
           <li>
-            Production integration uses Bedrock Mantle Responses with
-            <code>store=false</code>; Converse, InvokeModel, and Chat
+            Production integration uses Bedrock Runtime Responses with US
+            cross-Region inference, <code>store=false</code>, and retention mode
+            <code>none</code>; Mantle, Converse, InvokeModel, and Chat
             Completions require separate approval.
           </li>
           <li>Client headers are not trusted for identity or authorization.</li>
@@ -1322,7 +1343,7 @@
             Metering and billing are required as the usage and chargeback system
             of record.
           </li>
-          <li>MLflow observes only sanitized Codex CLI telemetry.</li>
+          <li>MLflow observes only sanitized Codex CLI traces.</li>
           <li>Supported users are SWE and PM job families only.</li>
           <li>
             Supported workflows are coding and code-adjacent
@@ -1334,9 +1355,10 @@
 
       <footer>
         Source: healthcare-ai-platform-consolidated-plan.md. This executive plan
-        intentionally simplifies implementation detail while preserving the same
-        section structure and control decisions. Vendor references should be
-        revalidated before implementation gates are approved.
+        summarizes the same control decisions with less implementation detail.
+        Vendor facts verified as of 2026-10-02 against official AWS, OpenAI,
+        Kong, and MLflow documentation; revalidate them before implementation
+        gates are approved.
       </footer>
     </main>
   </body>
