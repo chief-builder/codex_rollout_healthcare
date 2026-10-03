@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc -p .",
     "test": "node --test",
-    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=scripts/**"
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=scripts/**",
+    "build": "node scripts/build-site.mjs"
   },
   "repository": {
     "type": "git",
