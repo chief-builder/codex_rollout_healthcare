@@ -592,8 +592,8 @@
         </div>
         <img
           class="hero-image"
-          src="assets/executive-architecture-diagram.png"
-          alt="Executive architecture diagram showing Codex CLI through Kong, policy and metering, AWS Bedrock, OpenAI models, MLflow observability, and billing ledger"
+          src="assets/executive-architecture-diagram.svg"
+          alt="Executive architecture diagram showing Codex CLI through Kong, policy service, Amazon Bedrock Runtime, and OpenAI GPT-6 models, with Codex traces to MLflow, logs and metrics to backend observability, and usage to the metering store and billing ledger"
         />
       </section>
 
@@ -635,8 +635,8 @@
         </div>
         <img
           class="section-visual"
-          src="assets/executive-request-flow-diagram.png"
-          alt="Executive request flow diagram showing Codex token retrieval, Kong claims validation, policy and PHI checks, Bedrock Mantle Responses invocation with store=false, AWS Bedrock serving the model, streaming response, MLflow alias-only telemetry, metering served model tokens and cost, and fail-closed blocked path"
+          src="assets/executive-request-flow-diagram.svg"
+          alt="Executive request flow diagram showing Codex token retrieval, Kong claims validation, policy and PHI checks, a retention guard forcing store=false, Bedrock Runtime serving the GPT-6 model, the streamed response, fail-closed paths from Kong and the policy service, sanitized traces to MLflow, and usage events to metering"
         />
         <p class="visual-caption">
           Sequence view: policy failures stop before Bedrock; MLflow receives
@@ -810,7 +810,7 @@
         </p>
         <img
           class="section-visual"
-          src="assets/executive-identity-governance-diagram.png"
+          src="assets/executive-identity-governance-diagram.svg"
           alt="Identity and governance diagram showing SWE or PM users, enterprise token, Kong claims check, policy service, approved coding request, and blocked unauthorized path"
         />
         <p class="visual-caption">
@@ -848,7 +848,7 @@
         </p>
         <img
           class="section-visual"
-          src="assets/executive-metering-billing-diagram.png"
+          src="assets/executive-metering-billing-diagram.svg"
           alt="Metering and billing diagram showing Kong request record and policy-service token counts flowing to append-only metering store, chargeback, AWS CUR and Cost Explorer aggregate validation, and finance review"
         />
         <p class="visual-caption">
@@ -1014,8 +1014,8 @@
         </p>
         <img
           class="section-visual"
-          src="assets/executive-observability-boundary-diagram.png"
-          alt="Observability boundary diagram showing Codex CLI telemetry to OpenTelemetry Collector to MLflow, and Kong plus application telemetry to existing backend observability, with prohibited data blocked"
+          src="assets/executive-observability-boundary-diagram.svg"
+          alt="Observability boundary diagram showing Codex CLI telemetry to an OpenTelemetry Collector, sanitized traces to MLflow, Codex logs and metrics plus Kong and application telemetry to existing backend observability, and content that is never exported"
         />
         <p class="visual-caption">
           MLflow is intentionally scoped to sanitized Codex CLI metadata;
@@ -1197,7 +1197,7 @@
         <h2>14. Rollout Sequence</h2>
         <img
           class="section-visual"
-          src="assets/executive-rollout-roadmap-diagram.png"
+          src="assets/executive-rollout-roadmap-diagram.svg"
           alt="Rollout roadmap diagram showing phases 0 through 6 from foundations to PHI enablement with approval gates"
         />
         <p class="visual-caption">

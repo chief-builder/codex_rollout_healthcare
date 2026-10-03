@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Metering and billing flow</title>
+  <desc id="desc">Primary flow: the Kong request record and policy-service token counts feed an append-only metering store, the request-level system of record, which feeds chargeback and showback reports. Validation flow: metering totals rolled up by day, team, model tier and Region are compared with AWS CUR or Cost Explorer aggregates, then reviewed by Finance. AWS billing validates aggregate spend, not per-request usage.</desc>
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #172033; }
+      .h1 { font-size: 40px; font-weight: 700; fill: #08265a; }
+      .sub { font-size: 21px; fill: #4a5870; }
+      .bt { font-size: 23px; font-weight: 700; }
+      .b { font-size: 18px; }
+      .s { font-size: 16px; fill: #4a5870; }
+      .lbl { font-size: 16px; font-weight: 700; }
+    </style>
+    <marker id="anavy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#08265a"/></marker>
+    <marker id="ablue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1d5fbf"/></marker>
+    <marker id="agreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2f7d32"/></marker>
+    <marker id="ared" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c7352d"/></marker>
+    <marker id="ateal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
+  </defs>
+  <rect width="1600" height="760" fill="#ffffff"/>
+  <text x="800.0" y="58" text-anchor="middle" class="h1">Metering and Billing Flow</text>
+  <text x="800.0" y="94" text-anchor="middle" class="sub">The metering store is the request-level truth; AWS billing validates aggregates</text>
+  <text x="50" y="150" class="lbl" text-anchor="start" style="fill:#0f766e">PRIMARY FLOW: REQUEST-LEVEL SYSTEM OF RECORD</text>
+  <rect x="50" y="175" width="330" height="170" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="70" y="213" class="bt" style="fill:#0f766e">Kong Request Record</text>
+  <text x="70" y="247" class="b">Consumer, identity,</text>
+  <text x="70" y="272" class="b">route, timestamp</text>
+  <rect x="440" y="175" width="330" height="170" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="460" y="213" class="bt" style="fill:#0f766e">Policy Service Usage</text>
+  <text x="460" y="247" class="b">Input/output tokens,</text>
+  <text x="460" y="272" class="b">alias, served model</text>
+  <path d="M384 260.0 H435" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="830" y="175" width="330" height="170" rx="12" fill="#fff8e8" stroke="#9a6b13" stroke-width="2.5"/>
+  <text x="850" y="213" class="bt" style="fill:#9a6b13">Metering Store</text>
+  <text x="850" y="247" class="b">Append-only, immutable;</text>
+  <text x="850" y="272" class="b">no raw content</text>
+  <path d="M774 260.0 H825" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="1220" y="175" width="330" height="170" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="1240" y="213" class="bt" style="fill:#0f766e">Chargeback / Showback</text>
+  <text x="1240" y="247" class="b">By team, job family,</text>
+  <text x="1240" y="272" class="b">and model tier</text>
+  <path d="M1164 260.0 H1215" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <text x="50" y="440" class="lbl" text-anchor="start" style="fill:#08265a">VALIDATION FLOW: AGGREGATE CHECK</text>
+  <rect x="245.0" y="465" width="330" height="190" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="265.0" y="503" class="bt" style="fill:#08265a">AWS CUR / Cost Explorer</text>
+  <text x="265.0" y="537" class="b">AWS billing data,</text>
+  <text x="265.0" y="562" class="b">cost and usage</text>
+  <rect x="635.0" y="465" width="330" height="190" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="655.0" y="503" class="bt" style="fill:#08265a">Aggregate Validation</text>
+  <text x="655.0" y="537" class="b">Metering roll-ups vs</text>
+  <text x="655.0" y="562" class="b">AWS totals by day,</text>
+  <text x="655.0" y="587" class="b">team, tier, Region</text>
+  <path d="M579.0 560.0 H630.0" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <rect x="1025.0" y="465" width="330" height="190" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="1045.0" y="503" class="bt" style="fill:#08265a">Finance Review</text>
+  <text x="1045.0" y="537" class="b">Variance analysis,</text>
+  <text x="1045.0" y="562" class="b">approval, alerts on</text>
+  <text x="1045.0" y="587" class="b">discrepancies</text>
+  <path d="M969.0 560.0 H1020.0" fill="none" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <path d="M995.0 349 V400 H800.0 V459" fill="none" stroke="#2f7d32" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#agreen)"/>
+  <text x="985.0" y="392" class="s" text-anchor="end">daily roll-ups</text>
+  <path d="M260 720 H320" stroke="#08265a" stroke-width="3" marker-end="url(#anavy)"/>
+  <text x="335" y="726" class="s" text-anchor="start">Data flow</text>
+  <path d="M590 720 H650" stroke="#2f7d32" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#agreen)"/>
+  <text x="665" y="726" class="s" text-anchor="start">Roll-up for validation</text>
+</svg>

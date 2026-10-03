@@ -1,138 +1,96 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="700" viewBox="0 0 1672 700" role="img" aria-labelledby="title desc">
+  <title id="title">Executive rollout roadmap</title>
+  <desc id="desc">Seven gated phases: 0 Foundations, 1 Synthetic pilot, 2 Non-PHI repos, 3 Dashboards, 4 Frontier models (GPT-6 Astra and GPT-6 Sol), 5 Application coding traffic, 6 PHI enablement. Each phase needs signoff before the next starts.</desc>
   <defs>
     <style>
-      .bg { fill: #fff; }
-      .title { font: 700 52px Arial, sans-serif; fill: #08265a; letter-spacing: 3px; }
-      .subtitle { font: 400 28px Arial, sans-serif; fill: #172033; }
-      .num { font: 700 40px Arial, sans-serif; fill: #fff; }
-      .head { font: 700 20px Arial, sans-serif; fill: #fff; }
-      .body { font: 400 20px Arial, sans-serif; fill: #172033; }
-      .gate { font: 700 18px Arial, sans-serif; fill: #08265a; }
-      .small { font: 400 16px Arial, sans-serif; fill: #172033; }
-      .navy { fill: #08265a; }
-      .teal { fill: #0f766e; }
-      .gold { fill: #bd8a00; }
-      .card { fill: #fff; stroke: #d9e0ea; stroke-width: 2; }
-      .line { stroke: #08265a; stroke-width: 5; }
-      .dash { stroke-width: 3; stroke-dasharray: 4 8; }
+      text { font-family: Arial, Helvetica, sans-serif; fill: #172033; }
+      .h1 { font-size: 40px; font-weight: 700; fill: #08265a; }
+      .sub { font-size: 21px; fill: #4a5870; }
+      .bt { font-size: 23px; font-weight: 700; }
+      .b { font-size: 18px; }
+      .s { font-size: 16px; fill: #4a5870; }
+      .lbl { font-size: 16px; font-weight: 700; }
     </style>
+    <marker id="anavy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#08265a"/></marker>
+    <marker id="ablue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1d5fbf"/></marker>
+    <marker id="agreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2f7d32"/></marker>
+    <marker id="ared" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c7352d"/></marker>
+    <marker id="ateal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
   </defs>
-  <rect class="bg" width="1672" height="941"/>
-  <text x="836" y="82" text-anchor="middle" class="title">HEALTHCARE AI CODING PLATFORM</text>
-  <text x="836" y="136" text-anchor="middle" class="title" style="font-size:36px;fill:#0f766e">EXECUTIVE ROLLOUT ROADMAP</text>
-  <text x="836" y="190" text-anchor="middle" class="subtitle">Controlled rollout from foundations to PHI enablement with gates at every phase.</text>
-
-  <line x1="118" y1="282" x2="1554" y2="282" class="line"/>
-  <g transform="translate(70 235)">
-    <circle cx="48" cy="47" r="46" class="navy"/><text x="48" y="61" text-anchor="middle" class="num">0</text>
-  </g>
-  <g transform="translate(310 235)">
-    <circle cx="48" cy="47" r="46" class="teal"/><text x="48" y="61" text-anchor="middle" class="num">1</text>
-  </g>
-  <g transform="translate(550 235)">
-    <circle cx="48" cy="47" r="46" class="teal"/><text x="48" y="61" text-anchor="middle" class="num">2</text>
-  </g>
-  <g transform="translate(790 235)">
-    <circle cx="48" cy="47" r="46" class="navy"/><text x="48" y="61" text-anchor="middle" class="num">3</text>
-  </g>
-  <g transform="translate(1030 235)">
-    <circle cx="48" cy="47" r="46" class="gold"/><text x="48" y="61" text-anchor="middle" class="num">4</text>
-  </g>
-  <g transform="translate(1270 235)">
-    <circle cx="48" cy="47" r="46" class="teal"/><text x="48" y="61" text-anchor="middle" class="num">5</text>
-  </g>
-  <g transform="translate(1510 235)">
-    <circle cx="48" cy="47" r="46" class="gold"/><text x="48" y="61" text-anchor="middle" class="num">6</text>
-  </g>
-
-  <g transform="translate(26 360)">
-    <rect width="218" height="360" rx="12" class="card"/>
-    <rect width="218" height="62" rx="12" class="navy"/><text x="109" y="40" text-anchor="middle" class="head">FOUNDATIONS</text>
-    <text x="109" y="170" text-anchor="middle" class="body">Build core platform:</text>
-    <text x="109" y="196" text-anchor="middle" class="body">Kong, policy service,</text>
-    <text x="109" y="222" text-anchor="middle" class="body">Mantle Responses,</text>
-    <text x="109" y="248" text-anchor="middle" class="body">metering, observability.</text>
-    <line x1="109" y1="360" x2="109" y2="414" class="line dash"/>
-    <rect x="0" y="414" width="218" height="82" rx="10" class="card"/>
-    <text x="109" y="452" text-anchor="middle" class="gate">GATE:</text>
-    <text x="109" y="472" text-anchor="middle" class="small">Threat model +</text>
-    <text x="109" y="492" text-anchor="middle" class="small">store=false</text>
-  </g>
-
-  <g transform="translate(264 360)">
-    <rect width="218" height="360" rx="12" class="card"/>
-    <rect width="218" height="62" rx="12" class="teal"/><text x="109" y="40" text-anchor="middle" class="head">SYNTHETIC PILOT</text>
-    <text x="109" y="170" text-anchor="middle" class="body">3-5 managed developer</text>
-    <text x="109" y="196" text-anchor="middle" class="body">environments with</text>
-    <text x="109" y="222" text-anchor="middle" class="body">synthetic repositories</text>
-    <text x="109" y="248" text-anchor="middle" class="body">only.</text>
-    <line x1="109" y1="360" x2="109" y2="414" class="line dash" style="stroke:#0f766e"/>
-    <rect x="0" y="414" width="218" height="82" rx="10" class="card"/>
-    <text x="109" y="452" text-anchor="middle" class="gate" style="fill:#0f766e">GATE:</text>
-    <text x="109" y="478" text-anchor="middle" class="small">No PHI leakage</text>
-  </g>
-
-  <g transform="translate(502 360)">
-    <rect width="218" height="360" rx="12" class="card"/>
-    <rect width="218" height="62" rx="12" class="teal"/><text x="109" y="40" text-anchor="middle" class="head">NON-PHI REPOS</text>
-    <text x="109" y="170" text-anchor="middle" class="body">Approved SWE and PM</text>
-    <text x="109" y="196" text-anchor="middle" class="body">users on non-PHI</text>
-    <text x="109" y="222" text-anchor="middle" class="body">coding repositories.</text>
-    <line x1="109" y1="360" x2="109" y2="414" class="line dash" style="stroke:#0f766e"/>
-    <rect x="0" y="414" width="218" height="82" rx="10" class="card"/>
-    <text x="109" y="452" text-anchor="middle" class="gate" style="fill:#0f766e">GATE:</text>
-    <text x="109" y="478" text-anchor="middle" class="small">Finance validation</text>
-  </g>
-
-  <g transform="translate(740 360)">
-    <rect width="218" height="360" rx="12" class="card"/>
-    <rect width="218" height="62" rx="12" class="navy"/><text x="109" y="40" text-anchor="middle" class="head">DASHBOARDS</text>
-    <text x="109" y="170" text-anchor="middle" class="body">Adoption, latency,</text>
-    <text x="109" y="196" text-anchor="middle" class="body">failure, approval,</text>
-    <text x="109" y="222" text-anchor="middle" class="body">model usage,</text>
-    <text x="109" y="248" text-anchor="middle" class="body">and cost views.</text>
-    <line x1="109" y1="360" x2="109" y2="414" class="line dash"/>
-    <rect x="0" y="414" width="218" height="82" rx="10" class="card"/>
-    <text x="109" y="452" text-anchor="middle" class="gate">GATE:</text>
-    <text x="109" y="478" text-anchor="middle" class="small">Operating views</text>
-  </g>
-
-  <g transform="translate(978 360)">
-    <rect width="218" height="360" rx="12" class="card"/>
-    <rect width="218" height="62" rx="12" class="gold"/><text x="109" y="40" text-anchor="middle" class="head">FRONTIER MODELS</text>
-    <text x="109" y="170" text-anchor="middle" class="body">Optional gated</text>
-    <text x="109" y="196" text-anchor="middle" class="body">enablement of</text>
-    <text x="109" y="222" text-anchor="middle" class="body">GPT-5.5 and</text>
-    <text x="109" y="248" text-anchor="middle" class="body">GPT-5.4 aliases.</text>
-    <line x1="109" y1="360" x2="109" y2="414" class="line dash" style="stroke:#bd8a00"/>
-    <rect x="0" y="414" width="218" height="82" rx="10" class="card"/>
-    <text x="109" y="452" text-anchor="middle" class="gate" style="fill:#8a6200">GATE:</text>
-    <text x="109" y="478" text-anchor="middle" class="small">Compliance gate</text>
-  </g>
-
-  <g transform="translate(1216 360)">
-    <rect width="218" height="360" rx="12" class="card"/>
-    <rect width="218" height="62" rx="12" class="teal"/><text x="109" y="40" text-anchor="middle" class="head">APP CODING TRAFFIC</text>
-    <text x="109" y="170" text-anchor="middle" class="body">/ai/dev/coding</text>
-    <text x="109" y="196" text-anchor="middle" class="body">synthetic then</text>
-    <text x="109" y="222" text-anchor="middle" class="body">production coding-only</text>
-    <text x="109" y="248" text-anchor="middle" class="body">application traffic.</text>
-    <line x1="109" y1="360" x2="109" y2="414" class="line dash" style="stroke:#0f766e"/>
-    <rect x="0" y="414" width="218" height="82" rx="10" class="card"/>
-    <text x="109" y="452" text-anchor="middle" class="gate" style="fill:#0f766e">GATE:</text>
-    <text x="109" y="478" text-anchor="middle" class="small">Same controls</text>
-  </g>
-
-  <g transform="translate(1454 360)">
-    <rect width="218" height="360" rx="12" class="card"/>
-    <rect width="218" height="62" rx="12" class="gold"/><text x="109" y="40" text-anchor="middle" class="head">PHI ENABLEMENT</text>
-    <text x="109" y="170" text-anchor="middle" class="body">Activate PHI workflows</text>
-    <text x="109" y="196" text-anchor="middle" class="body">only after all approvals</text>
-    <text x="109" y="222" text-anchor="middle" class="body">and safeguards</text>
-    <text x="109" y="248" text-anchor="middle" class="body">are in place.</text>
-    <line x1="109" y1="360" x2="109" y2="414" class="line dash" style="stroke:#bd8a00"/>
-    <rect x="0" y="414" width="218" height="82" rx="10" class="card"/>
-    <text x="109" y="452" text-anchor="middle" class="gate" style="fill:#8a6200">GATE:</text>
-    <text x="109" y="478" text-anchor="middle" class="small">Separate approval</text>
-  </g>
+  <rect width="1672" height="700" fill="#ffffff"/>
+  <text x="836.0" y="58" text-anchor="middle" class="h1">Executive Rollout Roadmap</text>
+  <text x="836.0" y="94" text-anchor="middle" class="sub">Controlled rollout from foundations to PHI enablement, with a gate at every phase</text>
+  <path d="M128.0 190 H1526.0" stroke="#08265a" stroke-width="4"/>
+  <circle cx="128.0" cy="190" r="38" fill="#08265a"/><text x="128.0" y="203" text-anchor="middle" style="fill:#fff;font-size:36px;font-weight:700">0</text>
+  <rect x="20" y="260" width="216" height="200" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="128.0" y="298" class="bt" style="fill:#08265a" text-anchor="middle">Foundations</text>
+  <text x="128.0" y="332" class="b" text-anchor="middle">Kong, policy service,</text>
+  <text x="128.0" y="357" class="b" text-anchor="middle">Runtime Responses,</text>
+  <text x="128.0" y="382" class="b" text-anchor="middle">metering,</text>
+  <text x="128.0" y="407" class="b" text-anchor="middle">observability</text>
+  <path d="M128.0 464 V520" stroke="#08265a" stroke-width="3" stroke-dasharray="4 6"/>
+  <rect x="20" y="524" width="216" height="110" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="128.0" y="562" class="bt" style="fill:#08265a" text-anchor="middle">GATE</text>
+  <text x="128.0" y="596" class="b" text-anchor="middle">Threat model +</text>
+  <text x="128.0" y="621" class="b" text-anchor="middle">retention controls</text>
+  <circle cx="361.0" cy="190" r="38" fill="#0f766e"/><text x="361.0" y="203" text-anchor="middle" style="fill:#fff;font-size:36px;font-weight:700">1</text>
+  <rect x="253" y="260" width="216" height="200" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="361.0" y="298" class="bt" style="fill:#0f766e" text-anchor="middle">Synthetic Pilot</text>
+  <text x="361.0" y="332" class="b" text-anchor="middle">3-5 managed Macs,</text>
+  <text x="361.0" y="357" class="b" text-anchor="middle">synthetic repos</text>
+  <text x="361.0" y="382" class="b" text-anchor="middle">only</text>
+  <path d="M361.0 464 V520" stroke="#0f766e" stroke-width="3" stroke-dasharray="4 6"/>
+  <rect x="253" y="524" width="216" height="110" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="361.0" y="562" class="bt" style="fill:#0f766e" text-anchor="middle">GATE</text>
+  <text x="361.0" y="596" class="b" text-anchor="middle">No PHI leakage</text>
+  <circle cx="594.0" cy="190" r="38" fill="#0f766e"/><text x="594.0" y="203" text-anchor="middle" style="fill:#fff;font-size:36px;font-weight:700">2</text>
+  <rect x="486" y="260" width="216" height="200" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="594.0" y="298" class="bt" style="fill:#0f766e" text-anchor="middle">Non-PHI Repos</text>
+  <text x="594.0" y="332" class="b" text-anchor="middle">Approved SWE and</text>
+  <text x="594.0" y="357" class="b" text-anchor="middle">PM users on non-PHI</text>
+  <text x="594.0" y="382" class="b" text-anchor="middle">repositories</text>
+  <path d="M594.0 464 V520" stroke="#0f766e" stroke-width="3" stroke-dasharray="4 6"/>
+  <rect x="486" y="524" width="216" height="110" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="594.0" y="562" class="bt" style="fill:#0f766e" text-anchor="middle">GATE</text>
+  <text x="594.0" y="596" class="b" text-anchor="middle">Finance validation</text>
+  <circle cx="827.0" cy="190" r="38" fill="#08265a"/><text x="827.0" y="203" text-anchor="middle" style="fill:#fff;font-size:36px;font-weight:700">3</text>
+  <rect x="719" y="260" width="216" height="200" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="827.0" y="298" class="bt" style="fill:#08265a" text-anchor="middle">Dashboards</text>
+  <text x="827.0" y="332" class="b" text-anchor="middle">Adoption, latency,</text>
+  <text x="827.0" y="357" class="b" text-anchor="middle">failures, approvals,</text>
+  <text x="827.0" y="382" class="b" text-anchor="middle">usage, and cost</text>
+  <path d="M827.0 464 V520" stroke="#08265a" stroke-width="3" stroke-dasharray="4 6"/>
+  <rect x="719" y="524" width="216" height="110" rx="12" fill="#f5f8fc" stroke="#08265a" stroke-width="2.5"/>
+  <text x="827.0" y="562" class="bt" style="fill:#08265a" text-anchor="middle">GATE</text>
+  <text x="827.0" y="596" class="b" text-anchor="middle">Operating views</text>
+  <circle cx="1060.0" cy="190" r="38" fill="#9a6b13"/><text x="1060.0" y="203" text-anchor="middle" style="fill:#fff;font-size:36px;font-weight:700">4</text>
+  <rect x="952" y="260" width="216" height="200" rx="12" fill="#fff8e8" stroke="#9a6b13" stroke-width="2.5"/>
+  <text x="1060.0" y="298" class="bt" style="fill:#9a6b13" text-anchor="middle">Frontier Models</text>
+  <text x="1060.0" y="332" class="b" text-anchor="middle">Optional gated</text>
+  <text x="1060.0" y="357" class="b" text-anchor="middle">GPT-6 Astra and</text>
+  <text x="1060.0" y="382" class="b" text-anchor="middle">GPT-6 Sol aliases</text>
+  <path d="M1060.0 464 V520" stroke="#9a6b13" stroke-width="3" stroke-dasharray="4 6"/>
+  <rect x="952" y="524" width="216" height="110" rx="12" fill="#fff8e8" stroke="#9a6b13" stroke-width="2.5"/>
+  <text x="1060.0" y="562" class="bt" style="fill:#9a6b13" text-anchor="middle">GATE</text>
+  <text x="1060.0" y="596" class="b" text-anchor="middle">Compliance gate</text>
+  <circle cx="1293.0" cy="190" r="38" fill="#0f766e"/><text x="1293.0" y="203" text-anchor="middle" style="fill:#fff;font-size:36px;font-weight:700">5</text>
+  <rect x="1185" y="260" width="216" height="200" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="1293.0" y="298" class="bt" style="fill:#0f766e" text-anchor="middle">App Coding</text>
+  <text x="1293.0" y="332" class="b" text-anchor="middle">/ai/dev/coding</text>
+  <text x="1293.0" y="357" class="b" text-anchor="middle">synthetic, then</text>
+  <text x="1293.0" y="382" class="b" text-anchor="middle">production traffic</text>
+  <path d="M1293.0 464 V520" stroke="#0f766e" stroke-width="3" stroke-dasharray="4 6"/>
+  <rect x="1185" y="524" width="216" height="110" rx="12" fill="#effaf8" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="1293.0" y="562" class="bt" style="fill:#0f766e" text-anchor="middle">GATE</text>
+  <text x="1293.0" y="596" class="b" text-anchor="middle">Same controls</text>
+  <circle cx="1526.0" cy="190" r="38" fill="#9a6b13"/><text x="1526.0" y="203" text-anchor="middle" style="fill:#fff;font-size:36px;font-weight:700">6</text>
+  <rect x="1418" y="260" width="216" height="200" rx="12" fill="#fff8e8" stroke="#9a6b13" stroke-width="2.5"/>
+  <text x="1526.0" y="298" class="bt" style="fill:#9a6b13" text-anchor="middle">PHI Enablement</text>
+  <text x="1526.0" y="332" class="b" text-anchor="middle">Only after all</text>
+  <text x="1526.0" y="357" class="b" text-anchor="middle">approvals and</text>
+  <text x="1526.0" y="382" class="b" text-anchor="middle">safeguards</text>
+  <path d="M1526.0 464 V520" stroke="#9a6b13" stroke-width="3" stroke-dasharray="4 6"/>
+  <rect x="1418" y="524" width="216" height="110" rx="12" fill="#fff8e8" stroke="#9a6b13" stroke-width="2.5"/>
+  <text x="1526.0" y="562" class="bt" style="fill:#9a6b13" text-anchor="middle">GATE</text>
+  <text x="1526.0" y="596" class="b" text-anchor="middle">Separate approval</text>
 </svg>
