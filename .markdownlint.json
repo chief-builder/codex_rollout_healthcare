@@ -1,5 +1,6 @@
 {
   "extends": "markdownlint/style/prettier",
   "MD013": false,
-  "MD036": false
+  "MD036": false,
+  "MD041": false
 }
