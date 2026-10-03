@@ -45,8 +45,8 @@ flowchart LR
 | `healthcare-ai-platform-consolidated-plan.md` | Detailed technical plan; the source of the control decisions |
 | `index.html`                                  | Redirects the GitHub Pages root to the executive page        |
 | `assets/*.svg`                                | Diagram sources, used directly by the page                   |
-| `test/`                                       | Unit, content, and browser rendering tests                   |
-| `scripts/lib/content.mjs`                     | Pure helpers the tests use to check links and consistency    |
+| `test/`                                       | Unit, content, rendering, and Mermaid diagram tests          |
+| `scripts/lib/`                                | Content-check helpers and the shared browser launcher        |
 | `scripts/build-site.mjs`                      | Copies only the published files into `_site/`                |
 | `scripts/lint-markdown.mjs`                   | Runs markdownlint over tracked Markdown                      |
 | `AUDIT.md`                                    | Repository audit from 2026-10-02                             |
@@ -105,6 +105,9 @@ The tests cover three levels:
 - **Rendering** (`test/render.test.mjs`): Chromium renders the page at 1440 px
   and 390 px with no console errors, no broken images, no horizontal overflow,
   and the expected title, sections, and text.
+- **Diagrams** (`test/mermaid.test.mjs`): every Mermaid block in tracked
+  Markdown parses with Mermaid's own parser (run in Chromium), and a
+  deliberately broken diagram is rejected so the check cannot pass vacuously.
 
 CI also checks every internal and external link with lychee.
 
