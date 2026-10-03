@@ -32,7 +32,7 @@
     "governance"
   ],
   "devDependencies": {
-    "@types/node": "^24.19.1",
+    "@types/node": "^26.6.3",
     "html-validate": "^11.16.1",
     "markdownlint": "^0.41.1",
     "playwright": "^1.63.0",
