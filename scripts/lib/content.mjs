@@ -95,3 +95,18 @@ export function aliasModelsFromHtml(html) {
 export function verifiedAsOf(text) {
   return text.match(/verified as of\s+(\d{4}-\d{2}-\d{2})/i)?.[1] ?? null;
 }
+
+/**
+ * Mermaid diagrams in fenced code blocks tagged `mermaid`, with the 1-based
+ * line number of each opening fence.
+ * @param {string} markdown
+ * @returns {{ line: number, code: string }[]}
+ */
+export function mermaidBlocks(markdown) {
+  return [
+    ...markdown.matchAll(/^```mermaid[ \t]*\r?\n([\s\S]*?)^```[ \t]*$/gm),
+  ].map((m) => ({
+    line: markdown.slice(0, m.index).split("\n").length,
+    code: m[1],
+  }));
+}

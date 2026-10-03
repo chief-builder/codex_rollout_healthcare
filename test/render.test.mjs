@@ -1,12 +1,11 @@
 // Renders the executive plan in Chromium at desktop and mobile widths.
 // Ported from scripts/validate-executive-plan.mjs; the checks are unchanged.
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { after, before, describe, it } from "node:test";
 import { pathToFileURL } from "node:url";
-import { chromium } from "playwright";
+import { launchBrowser } from "../scripts/lib/browser.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const target = pathToFileURL(
@@ -24,24 +23,6 @@ const viewports = [
   { name: "desktop", width: 1440, height: 1200 },
   { name: "mobile", width: 390, height: 1000 },
 ];
-
-/** Uses Playwright's Chromium, or a locally installed browser on macOS. */
-async function launchBrowser() {
-  try {
-    return await chromium.launch();
-  } catch (error) {
-    const executablePath = [
-      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-      "/Applications/Chromium.app/Contents/MacOS/Chromium",
-      "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-    ].find((candidate) => existsSync(candidate));
-    if (!executablePath) throw error;
-    console.warn(
-      `Bundled Playwright Chromium failed to launch; retrying with ${executablePath}`,
-    );
-    return chromium.launch({ executablePath });
-  }
-}
 
 /** @type {import("playwright").Browser} */
 let browser;

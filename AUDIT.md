@@ -85,8 +85,11 @@ accurate.
 
   These need validation in an AWS account during Phase 0.
 
-- **Untested items from §5:** the Mermaid block is not parsed in CI, and phase
-  names are not compared between HTML and MD.
+- **Untested item from §5:** phase names are not compared between HTML and MD.
+  (The Mermaid parse check was added in
+  [PR #6](https://github.com/chief-builder/codex_rollout_healthcare/pull/6);
+  it found that the plan's sequence diagram had never parsed, because Mermaid
+  treats `;` in note text as a statement separator. Fixed in the same PR.)
 - **Single-source redesign:** generating the HTML from one source (proposed in
   §4) has not been done.
 

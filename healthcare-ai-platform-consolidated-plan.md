@@ -76,19 +76,19 @@ sequenceDiagram
     Tok-->>Dev: OIDC/JWT (job-family claim)
     Dev->>Kong: POST /codex/v1/responses (Bearer, wire_api=responses)
 
-    Note over Kong: validate token; authz from claims;<br/>strip client X-User-* headers;<br/>rate limit; budget check; metering tap
+    Note over Kong: validate token#59; authz from claims#59;<br/>strip client X-User-* headers#59;<br/>rate limit#59; budget check#59; metering tap
     alt unauthenticated / not SWE|PM / over quota / disallowed alias
         Kong-->>Dev: reject (fail closed)
     else allowed
         Kong->>Pol: forward request + validated claims
-        Note over Pol: re-validate claims + workflow;<br/>PHI detect (regex + NER/DLP);<br/>resolve coding-* alias -> US inference profile ID;<br/>force store=false; reject background=true
+        Note over Pol: re-validate claims + workflow#59;<br/>PHI detect (regex + NER/DLP)#59;<br/>resolve coding-* alias -> US inference profile ID#59;<br/>force store=false#59; reject background=true
         alt PHI-like input on non-PHI route
             Pol-->>Kong: reject (fail closed)
             Kong-->>Dev: rejected
         else clean
             Pol->>BR: forward Responses -> bedrock-runtime /openai/v1/responses (stream=true)
             alt throttled / unavailable
-                Note over Pol: backoff + retry;<br/>logged+metered fallback frontier->standard->economy;<br/>circuit breaker
+                Note over Pol: backoff + retry#59;<br/>logged+metered fallback frontier->standard->economy#59;<br/>circuit breaker
                 Pol->>BR: retry / fallback model
             end
             BR-->>Pol: model response (usage tokens)

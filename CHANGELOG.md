@@ -3,6 +3,18 @@
 All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- CI check that parses every Mermaid diagram in tracked Markdown.
+
+### Fixed
+
+- The technical plan's sequence diagram never rendered: semicolons in its
+  notes are Mermaid statement separators. They are now written as `#59;`,
+  which displays as `;`.
+
 ## [2.0.0] - 2026-10-02
 
 ### Changed
