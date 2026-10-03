@@ -64,7 +64,9 @@ for (const viewport of viewports) {
     }
   });
 
+  /** @type {string[]} */
   const consoleErrors = [];
+  /** @type {string[]} */
   const pageErrors = [];
 
   page.on("console", (message) => {

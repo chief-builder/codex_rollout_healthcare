@@ -7,7 +7,11 @@
   "homepage": "https://chief-builder.github.io/codex_rollout_healthcare/",
   "scripts": {
     "validate:html": "node scripts/validate-executive-plan.mjs",
-    "check": "npm run validate:html"
+    "check": "npm run validate:html",
+    "lint": "html-validate index.html codex_rollout_healthcare.html && node scripts/lint-markdown.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc -p ."
   },
   "repository": {
     "type": "git",
@@ -26,7 +30,12 @@
     "governance"
   ],
   "devDependencies": {
-    "playwright": "^1.63.0"
+    "@types/node": "^24.19.1",
+    "html-validate": "^11.16.1",
+    "markdownlint": "^0.41.1",
+    "playwright": "^1.63.0",
+    "prettier": "^3.9.9",
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=24.8.0"
