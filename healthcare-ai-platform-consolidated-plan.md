@@ -38,14 +38,15 @@ Healthcare app
 ```
 
 References:
-- AWS GA announcement for GPT-5.5, GPT-5.4, and Codex on Amazon Bedrock (June 1, 2026): https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-openai-models-codex-generally-available/
-- AWS Bedrock Mantle Responses API: https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html
-- AWS Bedrock API patterns, including OpenAI-compatible Responses, Chat Completions, and Messages on `bedrock-mantle`: https://docs.aws.amazon.com/bedrock/latest/userguide/apis.html
-- OpenAI guide for OpenAI models in Amazon Bedrock, including `BedrockOpenAI`, `openai.gpt-5.5`, and the regional Mantle base URL: https://developers.openai.com/api/docs/guides/amazon-bedrock#make-responses-api-requests
-- OpenAI latest-model guide (`gpt-5.5`): https://developers.openai.com/api/docs/guides/latest-model.md
-- Codex config (`otel.*`, `model_providers.*`, `wire_api`): https://developers.openai.com/codex/config-reference
-- AWS HIPAA Eligible Services Reference: https://aws.amazon.com/compliance/hipaa-eligible-services-reference/
-- MLflow OpenTelemetry trace ingestion `/v1/traces`: https://mlflow.org/docs/latest/genai/tracing/opentelemetry/
+
+- AWS GA announcement for GPT-5.5, GPT-5.4, and Codex on Amazon Bedrock (June 1, 2026): <https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-openai-models-codex-generally-available/>
+- AWS Bedrock Mantle Responses API: <https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html>
+- AWS Bedrock API patterns, including OpenAI-compatible Responses, Chat Completions, and Messages on `bedrock-mantle`: <https://docs.aws.amazon.com/bedrock/latest/userguide/apis.html>
+- OpenAI guide for OpenAI models in Amazon Bedrock, including `BedrockOpenAI`, `openai.gpt-5.5`, and the regional Mantle base URL: <https://developers.openai.com/api/docs/guides/amazon-bedrock#make-responses-api-requests>
+- OpenAI latest-model guide (`gpt-5.5`): <https://developers.openai.com/api/docs/guides/latest-model.md>
+- Codex config (`otel.*`, `model_providers.*`, `wire_api`): <https://developers.openai.com/codex/config-reference>
+- AWS HIPAA Eligible Services Reference: <https://aws.amazon.com/compliance/hipaa-eligible-services-reference/>
+- MLflow OpenTelemetry trace ingestion `/v1/traces`: <https://mlflow.org/docs/latest/genai/tracing/opentelemetry/>
 
 ## Codex Request Flow (sequence)
 
@@ -96,12 +97,12 @@ June 1, 2026. OpenAI's current latest-model guide identifies `gpt-5.5` as the
 latest model. Production use is still gated by healthcare-specific region,
 account access, quotas, budget, and compliance approvals.
 
-| Codex alias        | Bedrock Mantle model     | Class       | Availability                         |
-|--------------------|--------------------------|-------------|--------------------------------------|
-| `coding-economy`   | `openai.gpt-oss-20b`     | open-weight | GA; gated by approved region, account model access, endpoint availability, and quotas |
-| `coding-standard`  | `openai.gpt-oss-120b`    | open-weight | GA; gated by approved region, account model access, endpoint availability, and quotas |
-| `coding-frontier`  | `openai.gpt-5.5`         | frontier    | GA on Bedrock; gated by approved region, account model access, quotas, budget, and healthcare compliance sign-off |
-| `coding-frontier-p`| `openai.gpt-5.4`         | frontier    | GA on Bedrock; gated by the same healthcare controls |
+| Codex alias         | Bedrock Mantle model  | Class       | Availability                                                                                                      |
+| ------------------- | --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| `coding-economy`    | `openai.gpt-oss-20b`  | open-weight | GA; gated by approved region, account model access, endpoint availability, and quotas                             |
+| `coding-standard`   | `openai.gpt-oss-120b` | open-weight | GA; gated by approved region, account model access, endpoint availability, and quotas                             |
+| `coding-frontier`   | `openai.gpt-5.5`      | frontier    | GA on Bedrock; gated by approved region, account model access, quotas, budget, and healthcare compliance sign-off |
+| `coding-frontier-p` | `openai.gpt-5.4`      | frontier    | GA on Bedrock; gated by the same healthcare controls                                                              |
 
 - Model aliases are resolved **server-side** in the policy service; clients never send raw Bedrock model IDs. Mantle/OpenAI-compatible IDs are used for the Responses path; Runtime IDs such as `openai.gpt-oss-120b-1:0` apply only if a deliberate Converse/InvokeModel fallback path is approved.
 - **Same governance, logging, metering, PHI, and authorization controls apply to open-weight and frontier models** (per current decision). The only difference is the availability gate and per-model cost/quotas.
@@ -191,20 +192,24 @@ Metering and billing are a **first-class workstream**, separate from MLflow.
 MLflow is observability only and is **not** authoritative for billing.
 
 **Metering pipeline**
+
 - A metering tap at Kong and in the policy service records, per request: pseudonymous user ID, team, job-family claim, Codex consumer/app, model alias, resolved Bedrock model ID, region, input/output token counts, request count, latency, status/error class, and timestamp. **No prompt/completion/PHI/source content.**
 - Token counts come from the Bedrock Mantle Responses usage fields and are cross-checked against Kong request records.
 - Events land in an append-only metering store (system of record) inside the healthcare AWS/VPC boundary.
 
 **Quotas and budgets**
+
 - Per-user, per-team, per-job-family, and per-model **soft caps** (alert + throttle) and **hard caps** (fail-closed) enforced at Kong.
 - Frontier aliases carry separate, lower budgets than open-weight aliases given higher unit cost.
 - Hard-cap breach returns a controlled, observable "budget exceeded" response; auth/billing failures fail **closed**.
 
 **Chargeback / showback**
+
 - Daily chargeback/showback export per team and job family, with model-tier cost breakdown (economy / standard / frontier).
 - Cost attribution uses Bedrock unit pricing per resolved model ID.
 
 **Reconciliation and audit**
+
 - The append-only metering store is the **request-level system of record** for usage, token counts, model alias, resolved Bedrock model ID, and chargeback inputs.
 - AWS billing data, using CUR where available and Cost Explorer where CUR is not yet available, is used as **aggregate validation** at daily/team/model-tier granularity.
 - CloudTrail is used to validate that Bedrock invocation came only from approved Kong/policy-service roles, not as a per-request token ledger.
@@ -276,33 +281,36 @@ Each phase has **entry criteria**, **exit criteria**, **required approvers**, an
 
 **Global kill switch:** disabling the Kong `/codex/v1/responses` route and disabling the enterprise Codex token command/token issuance immediately stops all Codex model traffic; documented, tested, and owned by Platform Eng + Security.
 
-| Phase | Scope | Entry criteria | Exit criteria | Approvers |
-|------|-------|----------------|---------------|-----------|
-| **0 — Foundations** | Build Kong, policy service, Bedrock Mantle Responses integration, metering pipeline, OTel→MLflow, no users | Architecture + threat model approved; approved region, account model access, endpoint availability, and quota/throughput confirmed for `openai.gpt-oss-20b` and `openai.gpt-oss-120b` | Mantle Responses path load-tested; `store=false` enforcement verified; any Converse/InvokeModel fallback separately approved and tested; metering reconciliation demonstrated on synthetic load; claims-based authz verified; managed Mac local-retention controls evidenced; kill switch tested; PHI detectors unit-tested | Cyber, Platform Eng, Finance |
-| **1 — Synthetic pilot** | 3–5 managed macOS dev environments, **synthetic repos only**, open-weight aliases | Phase 0 exit signed | All Phase-0 controls green in real use; no PHI leakage in logs/MLflow/metering/local endpoint artifacts; auth fail-closed verified; budgets enforce | Cyber, Risk, Privacy, Platform Eng |
-| **2 — Non-PHI internal repos** | Approved SWE + PM users, **non-PHI internal coding repos**, open-weight aliases, metadata-only MLflow | Phase 1 exit; PHI-detection thresholds tuned | Stable adoption metrics; daily aggregate reconciliation within tolerance; chargeback/showback reports validated by Finance; residual-risk acceptance signed by Risk/Privacy | Cyber, Risk, Privacy, Platform Eng, Finance |
-| **3 — Observability + cost dashboards** | Dashboards for adoption, latency, failure classes, approval friction, model usage, Bedrock cost/quota | Phase 2 exit | Dashboards answer required queries; budget alerts wired; capacity headroom monitored | Platform Eng, Finance |
-| **4 — Frontier models (gated)** | Enable `coding-frontier*` aliases | Frontier Bedrock model access confirmed for `openai.gpt-5.5` and `openai.gpt-5.4`; BAA/HIPAA eligible-service and exclusion review complete; frontier budgets + quotas set | Same controls verified on frontier path; fallback ordering tested; frontier reconciliation clean | Cyber, Risk, Privacy, Platform Eng, Finance |
-| **5 — Application coding traffic** | `/ai/dev/coding` synthetic then production coding-only app traffic | Phase 3 exit (Phase 4 optional/parallel) | App path passes same authz/PHI/metering/resilience tests; uses existing backend observability | Cyber, Risk, Privacy, Platform Eng |
-| **6 — PHI enablement (only if/when pursued)** | Lift synthetic-only restriction | AWS BAA executed; full compliance review; logging/security architecture approved; PHI route policies approved | Out of current scope — explicit separate approval required | Cyber, Risk, Privacy, Legal |
+| Phase                                         | Scope                                                                                                      | Entry criteria                                                                                                                                                                        | Exit criteria                                                                                                                                                                                                                                                                                                               | Approvers                                   |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| **0 — Foundations**                           | Build Kong, policy service, Bedrock Mantle Responses integration, metering pipeline, OTel→MLflow, no users | Architecture + threat model approved; approved region, account model access, endpoint availability, and quota/throughput confirmed for `openai.gpt-oss-20b` and `openai.gpt-oss-120b` | Mantle Responses path load-tested; `store=false` enforcement verified; any Converse/InvokeModel fallback separately approved and tested; metering reconciliation demonstrated on synthetic load; claims-based authz verified; managed Mac local-retention controls evidenced; kill switch tested; PHI detectors unit-tested | Cyber, Platform Eng, Finance                |
+| **1 — Synthetic pilot**                       | 3–5 managed macOS dev environments, **synthetic repos only**, open-weight aliases                          | Phase 0 exit signed                                                                                                                                                                   | All Phase-0 controls green in real use; no PHI leakage in logs/MLflow/metering/local endpoint artifacts; auth fail-closed verified; budgets enforce                                                                                                                                                                         | Cyber, Risk, Privacy, Platform Eng          |
+| **2 — Non-PHI internal repos**                | Approved SWE + PM users, **non-PHI internal coding repos**, open-weight aliases, metadata-only MLflow      | Phase 1 exit; PHI-detection thresholds tuned                                                                                                                                          | Stable adoption metrics; daily aggregate reconciliation within tolerance; chargeback/showback reports validated by Finance; residual-risk acceptance signed by Risk/Privacy                                                                                                                                                 | Cyber, Risk, Privacy, Platform Eng, Finance |
+| **3 — Observability + cost dashboards**       | Dashboards for adoption, latency, failure classes, approval friction, model usage, Bedrock cost/quota      | Phase 2 exit                                                                                                                                                                          | Dashboards answer required queries; budget alerts wired; capacity headroom monitored                                                                                                                                                                                                                                        | Platform Eng, Finance                       |
+| **4 — Frontier models (gated)**               | Enable `coding-frontier*` aliases                                                                          | Frontier Bedrock model access confirmed for `openai.gpt-5.5` and `openai.gpt-5.4`; BAA/HIPAA eligible-service and exclusion review complete; frontier budgets + quotas set            | Same controls verified on frontier path; fallback ordering tested; frontier reconciliation clean                                                                                                                                                                                                                            | Cyber, Risk, Privacy, Platform Eng, Finance |
+| **5 — Application coding traffic**            | `/ai/dev/coding` synthetic then production coding-only app traffic                                         | Phase 3 exit (Phase 4 optional/parallel)                                                                                                                                              | App path passes same authz/PHI/metering/resilience tests; uses existing backend observability                                                                                                                                                                                                                               | Cyber, Risk, Privacy, Platform Eng          |
+| **6 — PHI enablement (only if/when pursued)** | Lift synthetic-only restriction                                                                            | AWS BAA executed; full compliance review; logging/security architecture approved; PHI route policies approved                                                                         | Out of current scope — explicit separate approval required                                                                                                                                                                                                                                                                  | Cyber, Risk, Privacy, Legal                 |
 
 Codex Cloud and direct OpenAI API access remain **out of scope** for the regulated production path.
 
 ## Test Plan
 
 Identity / authorization:
+
 - Kong rejects unauthenticated, unauthorized, oversized, disallowed-model, and non-coding requests.
 - Job family is taken from validated token claims; client-supplied `X-User-*` headers are stripped and cannot escalate privileges.
 - Users outside approved SWE/PM group claims are rejected at Kong and re-rejected at the policy service.
 - Codex fails closed on missing/invalid token, invalid job-family claim, disallowed region, unapproved model alias.
 
 Bedrock Responses integration:
+
 - Codex Responses requests pass through Kong and policy service to Bedrock Mantle `/openai/v1/responses` and stream back as Responses-format SSE for both gpt-oss and frontier models when enabled.
 - `store=false` is present on every Bedrock request; any request missing it is rejected before Bedrock.
 - `Converse`/`InvokeModel` fallback is validated only if separately approved for a feature, streaming, or model availability gap; Chat Completions remains non-production unless separately approved.
 - Tool calls, stop reasons, usage fields, and error classes map correctly; malformed requests fail closed.
 
 Metering / billing:
+
 - Every request produces a metering event with token counts, model ID, and no raw content.
 - Soft caps alert/throttle; hard caps fail closed with controlled response.
 - Request-level metering store is authoritative for usage and chargeback inputs.
@@ -310,6 +318,7 @@ Metering / billing:
 - Chargeback/showback report attributes cost per team/job family/model tier.
 
 PHI / data protection:
+
 - Regex + NER/DLP detectors block PHI-like input on non-PHI routes (test with synthetic PHI fixtures).
 - No PHI/secrets/source/command output/diffs/raw prompts/completions appear in Kong logs, metering store, backend logs, MLflow, or unmanaged local endpoint artifacts.
 - Bedrock Mantle request-retention behavior is verified with `store=false`.
@@ -317,11 +326,13 @@ PHI / data protection:
 - Managed Mac validation confirms approved retention/redaction behavior for Codex logs, terminal scrollback, shell history, crash reports, SQLite/runtime state, temporary files, and EDR/endpoint telemetry collection.
 
 Resilience:
+
 - Bedrock throttling/timeout triggers bounded backoff and (where approved) logged+metered model fallback.
 - Circuit breaker trips and recovers; availability failures fail safe, while policy, budget, auth, PHI, and missing `store=false` failures fail closed.
 - Kill switch immediately halts Codex traffic.
 
 End-to-end:
+
 - Approved synthetic coding requests (code explanation, generation, refactoring, tests, debugging, review, code docs, backlog-to-technical-plan, requirement-to-task decomposition) reach Bedrock and return through Kong.
 - Bedrock invocation occurs only from the Kong/policy-service role (verify via CloudTrail).
 - MLflow dashboards report requested model alias/provider usage, latency, failure rate, approval frequency, and adoption by team/repo hash/job family.
