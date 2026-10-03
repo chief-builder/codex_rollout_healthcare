@@ -11,6 +11,7 @@ import {
   localPaths,
   relativeHtmlRefs,
   relativeMarkdownLinks,
+  verifiedAsOf,
 } from "../scripts/lib/content.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -75,5 +76,14 @@ describe("repository content", () => {
     );
     assert.ok(fromHtml.size > 0, "no alias table found in the HTML plan");
     assert.deepEqual(fromHtml, fromMarkdown);
+  });
+
+  it("HTML and Markdown plans state the same vendor-facts verification date", () => {
+    const html = verifiedAsOf(read("codex_rollout_healthcare.html"));
+    const markdown = verifiedAsOf(
+      read("healthcare-ai-platform-consolidated-plan.md"),
+    );
+    assert.ok(html, "no 'verified as of YYYY-MM-DD' in the HTML plan");
+    assert.equal(html, markdown);
   });
 });
