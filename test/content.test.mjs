@@ -5,6 +5,7 @@ import {
   aliasModelsFromMarkdown,
   imagesMissingAlt,
   localPaths,
+  mermaidBlocks,
   relativeHtmlRefs,
   relativeMarkdownLinks,
   verifiedAsOf,
@@ -118,5 +119,22 @@ describe("verifiedAsOf", () => {
   it("returns null when absent or malformed", () => {
     assert.equal(verifiedAsOf("verified as of October 2026"), null);
     assert.equal(verifiedAsOf(""), null);
+  });
+});
+
+describe("mermaidBlocks", () => {
+  it("returns each mermaid block with its opening-fence line", () => {
+    const md =
+      "# Title\n\n```mermaid\nflowchart LR\n  A --> B\n```\n\ntext\n```mermaid\nsequenceDiagram\n```\n";
+    assert.deepEqual(mermaidBlocks(md), [
+      { line: 3, code: "flowchart LR\n  A --> B\n" },
+      { line: 9, code: "sequenceDiagram\n" },
+    ]);
+  });
+
+  it("ignores other fenced languages and inline mentions", () => {
+    const md =
+      "```text\nflowchart LR\n```\nUse ```mermaid``` inline.\n```js\nmermaid()\n```\n";
+    assert.deepEqual(mermaidBlocks(md), []);
   });
 });
