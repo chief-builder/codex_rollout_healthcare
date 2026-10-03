@@ -5,6 +5,91 @@ live GitHub Pages site, and the external sources the plan cites. No CLAUDE.md
 exists in the repo. Vendor facts were checked against official sources on
 2026-10-02.
 
+Sections 1–8 and the prioritized plan below are the original Phase 1
+findings, kept unchanged as a dated record. The next section records how each
+finding was resolved.
+
+## Resolution status (updated 2026-10-02)
+
+Fixed in [PR #1](https://github.com/chief-builder/codex_rollout_healthcare/pull/1)
+(merge `58ab41e`), [PR #3](https://github.com/chief-builder/codex_rollout_healthcare/pull/3)
+(`8513b99`), and [PR #4](https://github.com/chief-builder/codex_rollout_healthcare/pull/4)
+(`35e657b`), plus repository settings applied by the owner's request on
+2026-10-02. Commit hashes below are from PR #1 unless noted.
+
+Owner decisions taken after the audit:
+
+- License the repo under MIT.
+- Move the model aliases to the GPT-6 family.
+- Switch the production path from `bedrock-mantle` to `bedrock-runtime`.
+- Recreate all diagrams as SVG sources.
+- Deploy Pages from GitHub Actions.
+
+### Accuracy findings
+
+| #     | Finding                                           | Resolution                                                                                                                                       | Evidence                                   |
+| ----- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------ |
+| R4    | SVGs present but unused                           | ✅ Resolved: all six diagrams are SVG sources used directly by the page; PNGs removed                                                            | `09af37c`; render test "loads every image" |
+| R6    | Quickstart missing browser install / Node version | ✅ Resolved: README adds `npx playwright install chromium` and Node 24; fresh clone with an empty browser cache passes                           | `b25556a`; PR #1 verification output       |
+| R9    | "UNLICENSED" on a public repo                     | ✅ Resolved: MIT LICENSE added, `package.json` updated                                                                                           | `0f5be25`                                  |
+| V1    | GPT-5.5/5.4 GA claim                              | Superseded: the plan now cites the GPT-6 announcements (2026-09-08, 09-22, 09-29)                                                                | `986a146`                                  |
+| V2    | `gpt-5.5` as OpenAI's latest model                | ✅ Resolved: claim removed; the plan cites the GPT-6 family from the latest-model guide                                                          | `986a146`                                  |
+| V3    | Stale OpenAI Bedrock guide examples               | ✅ Resolved: claim removed                                                                                                                       | `986a146`                                  |
+| V4    | Redirected Mantle page; Mantle as production      | ✅ Resolved: production path is `bedrock-runtime` (AWS's recommendation); sources updated to `inference-responses-api.html` and `endpoints.html` | `986a146`; lychee: no redirects            |
+| V5    | `store=false` alone treated as zero retention     | ✅ Resolved: plan requires `store=false` plus account retention mode `none` in every approved Region, enforced by SCP                            | `986a146`                                  |
+| V7    | Model IDs                                         | ✅ Updated to `us.openai.gpt-6-luna`, `gpt-6.1-sol`, `gpt-6-astra`, `gpt-6-sol` (AWS model cards); HTML↔MD alias consistency is tested           | `986a146`; `test/repo.test.mjs`            |
+| V8    | gpt-oss "GA" wording                              | Moot: gpt-oss tier retired                                                                                                                       | `986a146`                                  |
+| V9    | One Mantle path for all models                    | Moot: confirmed that gpt-oss uses `/v1` and GPT-5.x/6.x use `/openai/v1`; the runtime path is uniform                                            | AWS model cards                            |
+| V10   | `bedrock-mantle:CreateInference`                  | Superseded: IAM rewritten for runtime (`bedrock:InvokeModel` / `InvokeModelWithResponseStream`)                                                  | `986a146`                                  |
+| V11   | Codex config source moved; managed-config note    | ✅ Resolved: URL updated; plan notes custom providers aren't supported in cloud-managed config and are deployed via device management            | `986a146`                                  |
+| V12   | Codex logs to MLflow                              | ✅ Resolved: MLflow receives traces only; logs and metrics go to backend observability                                                           | `986a146`; `09af37c`                       |
+| V15   | Kong Enterprise licensing not mentioned           | ✅ Resolved: licensing note added                                                                                                                | `986a146`                                  |
+| I1    | Footer "same section structure"                   | ✅ Resolved: reworded                                                                                                                            | `986a146`                                  |
+| I2    | Dangling superseded-file names                    | ✅ Resolved: reworded to "two earlier drafts not published in this repository"                                                                   | `986a146`                                  |
+| I3    | Metering diagram "adapter token counts"           | ✅ Resolved: now "Policy Service Usage"                                                                                                          | `09af37c`                                  |
+| I4–I6 | Diagram legend, clipping, misleading arrow        | ✅ Resolved: diagrams recreated and visually checked                                                                                             | `09af37c`                                  |
+| I8    | No "as of" date                                   | ✅ Resolved: "verified as of 2026-10-02" in both plans; a test requires the dates to match                                                       | `986a146`; `cbef78b`                       |
+
+R1–R3, R5, R7, R8, V6, V13, V14, V16 and I7 were already Verified and remain
+accurate.
+
+### Currency, design, tests, CI/CD, security, onboarding
+
+| Area       | Finding                                                                             | Resolution                                                                                                                                        |
+| ---------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Currency   | Node 22.13.0 in CI only; no `.nvmrc`/`engines`                                      | ✅ Node 24 LTS pinned via `.nvmrc` and `engines` (`01edc38`)                                                                                      |
+| Currency   | Playwright 1.60.0                                                                   | ✅ 1.63.0 (`9a70da6`)                                                                                                                             |
+| Currency   | Actions on unpinned `@v4` tags                                                      | ✅ Latest majors, SHA-pinned (`c1573bd`, `2aef0ce`)                                                                                               |
+| Currency   | `@types/node` majors drifting from runtime                                          | ✅ Dependabot ignores `@types/node` major updates so types track Node 24 (PR #3)                                                                  |
+| Design     | HTML↔MD drift, no checks                                                            | ✅ Partly: tests pin aliases, model IDs and verification date. Generating the HTML from one source remains a proposal                             |
+| Design     | Validator lacked `try/finally`                                                      | ✅ Ported to `node:test` with `before`/`after` hooks and guaranteed browser cleanup (`ca5d7af`)                                                   |
+| Design     | Diagnostic screenshot could fail the suite                                          | ✅ Screenshot is best-effort (PR #4); found as a CI flake after PR #1                                                                             |
+| Design     | Pages published the whole repo                                                      | ✅ Actions deploy publishes only `_site/` (`5beddf3`, `2aef0ce`); Pages source switched to GitHub Actions                                         |
+| Tests      | Links, redirect target, alt text, HTML↔MD untested                                  | ✅ Covered by `test/repo.test.mjs` and the lychee CI job; 36 tests, 100% line/branch/function coverage of `scripts/lib/content.mjs`               |
+| CI/CD      | No permissions, concurrency, timeouts, lint, links                                  | ✅ All added (`c1573bd`); `main` protected by a ruleset requiring both CI checks                                                                  |
+| Security   | No SECURITY.md, Dependabot, CodeQL                                                  | ✅ SECURITY.md and Dependabot (`b1da6a8`); CodeQL default setup enabled (JavaScript/TypeScript, Actions); private vulnerability reporting enabled |
+| Security   | `.gitignore` gaps                                                                   | ✅ Env, editor and build files ignored (`dc5dc7c`)                                                                                                |
+| Security   | New high finding from `markdownlint-cli2` (`braces`, GHSA-vfj7-8cjw-p6xm, no patch) | ✅ Replaced with the `markdownlint` library; `npm audit` reports 0 vulnerabilities                                                                |
+| Onboarding | README gaps (license, status, architecture)                                         | ✅ README rewritten with summary, architecture, quickstart, configuration, tests, status and license (`b25556a`)                                  |
+| Hygiene    | No LICENSE, CONTRIBUTING, CHANGELOG, templates                                      | ✅ Added (`0f5be25`, `27a075f`, `b25556a`)                                                                                                        |
+
+### Still open
+
+- **Vendor facts not stated in official docs** (listed under "Open Validation
+  Items" in the technical plan):
+  - the CloudTrail `eventName` for runtime Responses calls;
+  - which Region's retention mode governs cross-Region requests;
+  - which Responses parameters Bedrock Runtime accepts;
+  - the Codex OTLP metrics endpoint;
+  - HIPAA wording specific to cross-Region inference.
+
+  These need validation in an AWS account during Phase 0.
+
+- **Untested items from §5:** the Mermaid block is not parsed in CI, and phase
+  names are not compared between HTML and MD.
+- **Single-source redesign:** generating the HTML from one source (proposed in
+  §4) has not been done.
+
 ## 1. What the project does (from the code)
 
 This repository is a static documentation site. It is not an application. It
