@@ -33,7 +33,7 @@
   ],
   "devDependencies": {
     "@types/node": "^24.19.1",
-    "html-validate": "^11.16.1",
+    "html-validate": "^11.16.2",
     "markdownlint": "^0.41.1",
     "mermaid": "^12.1.0",
     "playwright": "^1.63.0",
